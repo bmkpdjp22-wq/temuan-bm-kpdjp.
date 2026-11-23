@@ -19,75 +19,71 @@
       --success-text: #15803d;
       --warn-bg: #fef3c7;
       --warn-text: #b45309;
-      --danger-bg: #fee2e2;
-      --danger-text: #b91c1c;
-      --shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+      --shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
     }
 
     body {
-      background: linear-gradient(180deg, #e2e8f0 0%, var(--bg) 220px);
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 24px 16px 40px;
+      padding: 20px 16px 40px;
     }
 
     .app {
-      max-width: 1280px;
+      max-width: 1240px;
       margin: 0 auto;
     }
 
     .topbar {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--accent) 100%);
-      color: #fff;
-      border-radius: 16px;
-      padding: 24px 28px;
+      color: #ffffff;
+      border-radius: 14px;
+      padding: 22px 26px;
       box-shadow: var(--shadow);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 18px;
+      gap: 14px;
+      margin-bottom: 16px;
     }
 
-    .topbar-badge {
+    .badge-top {
       display: inline-block;
       background: rgba(255, 255, 255, 0.16);
       border: 1px solid rgba(255, 255, 255, 0.25);
       padding: 4px 10px;
       border-radius: 999px;
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.4px;
+      font-weight: 700;
       margin-bottom: 8px;
     }
 
     .topbar h1 {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 700;
-      letter-spacing: -0.2px;
     }
 
     .topbar p {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(255, 255, 255, 0.88);
       margin-top: 4px;
     }
 
     .topbar-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
 
-    button, .file-label {
+    button, .upload-btn {
       border: none;
       border-radius: 10px;
       padding: 10px 15px;
@@ -97,72 +93,36 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s ease;
+      transition: 0.15s ease;
     }
 
-    .btn-light {
+    .btn-white {
       background: #ffffff;
       color: var(--primary-dark);
     }
 
-    .btn-light:hover {
+    .btn-white:hover {
       background: #f1f5f9;
-      transform: translateY(-1px);
     }
 
-    .btn-ghost {
-      background: rgba(255, 255, 255, 0.14);
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.16);
       color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
-    .btn-ghost:hover {
-      background: rgba(255, 255, 255, 0.24);
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.26);
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .stat-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-
-    .stat-value {
-      font-size: 26px;
-      font-weight: 800;
-      color: var(--primary-dark);
-      margin-top: 6px;
-    }
-
-    .stat-sub {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .panel {
+    /* 2 Tombol Utama Sheet: Temuan & Berita Acara */
+    .sheet-switcher {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 14px 18px;
       box-shadow: var(--shadow);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -170,47 +130,43 @@
       gap: 12px;
     }
 
-    .sheet-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      background: var(--surface-alt);
-      padding: 5px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .sheet-tab {
-      background: transparent;
-      color: var(--muted);
-      border-radius: 8px;
-      padding: 9px 16px;
-    }
-
-    .sheet-tab.active {
-      background: var(--primary);
-      color: #ffffff;
-      box-shadow: 0 2px 8px rgba(11, 59, 96, 0.25);
-    }
-
-    .count-pill {
-      background: rgba(15, 23, 42, 0.1);
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .sheet-tab.active .count-pill {
-      background: rgba(255, 255, 255, 0.22);
-      color: #fff;
-    }
-
-    .filters {
+    .two-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      align-items: center;
+    }
+
+    .btn-sheet {
+      background: #e2e8f0;
+      color: var(--text);
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .btn-sheet.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(11, 59, 96, 0.25);
+    }
+
+    .pill {
+      background: rgba(15, 23, 42, 0.12);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    .btn-sheet.active .pill {
+      background: rgba(255, 255, 255, 0.24);
+      color: #ffffff;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     select, input[type="text"] {
@@ -218,17 +174,40 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       font-size: 13px;
-      background: var(--surface);
+      background: #ffffff;
       color: var(--text);
-      outline: none;
     }
 
-    select:focus, input[type="text"]:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+    .summary-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
-    .table-card {
+    .summary-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-box .label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .summary-box .num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-top: 4px;
+    }
+
+    .data-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -236,24 +215,23 @@
       overflow: hidden;
     }
 
-    .table-header-bar {
+    .data-card-head {
       padding: 14px 20px;
+      background: var(--surface-alt);
       border-bottom: 1px solid var(--border);
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
-      background: var(--surface-alt);
     }
 
-    .table-title {
+    .data-card-head h2 {
       font-size: 15px;
-      font-weight: 700;
       color: var(--primary-dark);
     }
 
-    .table-responsive {
+    .table-wrap {
       width: 100%;
       overflow-x: auto;
     }
@@ -267,111 +245,446 @@
     th {
       background: #f1f5f9;
       color: var(--primary-dark);
+      font-size: 12px;
       font-weight: 700;
       text-align: left;
-      padding: 12px 14px;
+      padding: 11px 14px;
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
     }
 
     td {
-      padding: 12px 14px;
-      border-bottom: 1px solid #eef2f6;
+      padding: 11px 14px;
+      border-bottom: 1px solid #edf2f7;
       vertical-align: top;
-      line-height: 1.45;
-    }
-
-    tbody tr:hover {
-      background: #f8fafc;
     }
 
     .badge {
       display: inline-block;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: 999px;
       font-size: 11px;
       font-weight: 700;
-      white-space: nowrap;
     }
 
-    .badge-selesai {
+    .badge-ok {
       background: var(--success-bg);
       color: var(--success-text);
     }
 
-    .badge-tunda {
+    .badge-wait {
       background: var(--warn-bg);
       color: var(--warn-text);
     }
 
-    .empty-state {
-      padding: 40px 20px;
+    .empty {
+      padding: 36px 20px;
       text-align: center;
       color: var(--muted);
     }
 
-    .empty-state strong {
-      display: block;
-      font-size: 15px;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .notice-error {
-      margin-top: 10px;
-      display: inline-block;
-      background: var(--danger-bg);
-      color: var(--danger-text);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .statusbar {
+    .data-card-foot {
       padding: 12px 20px;
       background: var(--surface-alt);
       border-top: 1px solid var(--border);
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
+      flex-wrap: wrap;
       gap: 8px;
       font-size: 12px;
       color: var(--muted);
-    }
-
-    @media (max-width: 640px) {
-      .topbar {
-        padding: 18px;
-      }
-      .topbar h1 {
-        font-size: 18px;
-      }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <header class="topbar">
+    <div class="topbar">
       <div>
-        <span class="topbar-badge">KPDJP • BUILDING MANAGEMENT</span>
+        <span class="badge-top">KPDJP • BUILDING MANAGEMENT</span>
         <h1>Monitoring Temuan & Berita Acara</h1>
-        <p>Tampilan 2 Sheet Terintegrasi: <strong>TEMUAN</strong> dan <strong>BERITA ACARA</strong></p>
+        <p>Pilih sheet <strong>Temuan</strong> atau <strong>Berita Acara</strong> untuk melihat data</p>
       </div>
       <div class="topbar-actions">
-        <button class="btn-ghost" onclick="loadAllData(true)">↻ Muat Ulang</button>
-        <label class="btn-ghost file-label" for="jsonUpload">
+        <button class="btn-glass" onclick="loadData(true)">↻ Muat Ulang</button>
+        <label class="btn-glass upload-btn" for="fileInput">
           ↑ Muat JSON
-          <input id="jsonUpload" type="file" accept=".json" style="display:none" onchange="handleFileUpload(event)" />
+          <input id="fileInput" type="file" accept=".json" style="display:none" onchange="onUploadJson(event)" />
         </label>
-        <button class="btn-light" onclick="exportJson()">↓ Unduh JSON</button>
+        <button class="btn-white" onclick="downloadData()">↓ Unduh JSON</button>
       </div>
-    </header>
+    </div>
 
-    <section class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-label">Total Sheet Temuan</div>
-        <div class
+    <!-- 2 TOMBOL SHEET: TEMUAN & BERITA ACARA -->
+    <div class="sheet-switcher">
+      <div class="two-buttons">
+        <button id="btn-sheet-temuan" class="btn-sheet active" onclick="selectSheet('TEMUAN')">
+          Temuan <span class="pill" id="count-temuan">0</span>
+        </button>
+        <button id="btn-sheet-ba" class="btn-sheet" onclick="selectSheet('BA')">
+          Berita Acara <span class="pill" id="count-ba">0</span>
+        </button>
+      </div>
+
+      <div class="filter-group">
+        <select id="gedungFilter" onchange="renderTable()">
+          <option value="">Semua Gedung</option>
+          <option value="MM">Gedung MM</option>
+          <option value="CAKTI">Gedung Cakti</option>
+          <option value="BUDDHI">Gedung Buddhi</option>
+          <option value="BHAKTI">Gedung Bhakti</option>
+        </select>
+        <input id="searchInput" type="text" placeholder="Cari data..." oninput="renderTable()" />
+      </div>
+    </div>
+
+    <div class="summary-row">
+      <div class="summary-box">
+        <div class="label">Total Sheet Temuan</div>
+        <div class="num" id="sum-temuan">0</div>
+      </div>
+      <div class="summary-box">
+        <div class="label">Temuan Selesai</div>
+        <div class="num" id="sum-selesai">0</div>
+      </div>
+      <div class="summary-box">
+        <div class="label">Temuan Tunda</div>
+        <div class="num" id="sum-tunda">0</div>
+      </div>
+      <div class="summary-box">
+        <div class="label">Total Sheet Berita Acara</div>
+        <div class="num" id="sum-ba">0</div>
+      </div>
+    </div>
+
+    <div class="data-card">
+      <div class="data-card-head">
+        <h2 id="sheetHeading">Sheet: TEMUAN</h2>
+        <span id="rowInfo" style="font-size:12px; color:var(--muted);">0 baris</span>
+      </div>
+      <div class="table-wrap" id="tableArea">
+        <div class="empty">Memuat data...</div>
+      </div>
+      <div class="data-card-foot">
+        <span id="sourceLabel">Sumber: -</span>
+        <span id="updateLabel">Update: -</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SHEET_ID = "1kW3IsDOgG7uhh02mJc3DYz_d8bjDt_-nKQxvbB5A8EE";
+    const GID_TEMUAN = "0";
+    const GID_BA = "1339186549";
+    const JSON_PATH = "./data/data_temuan_ba.json";
+
+    const appData = {
+      sheet: "TEMUAN",
+      temuan: [],
+      beritaAcara: [],
+      source: "-",
+      updated: "-",
+      error: ""
+    };
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        const next = text[i + 1];
+        if (ch === '"' && inQuotes && next === '"') {
+          cell += '"';
+          i++;
+        } else if (ch === '"') {
+          inQuotes = !inQuotes;
+        } else if (ch === "," && !inQuotes) {
+          row.push(cell.trim());
+          cell = "";
+        } else if ((ch === "\n" || ch === "\r") && !inQuotes) {
+          if (ch === "\r" && next === "\n") i++;
+          row.push(cell.trim());
+          if (row.some(v => v !== "")) rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += ch;
+        }
+      }
+      if (cell.length > 0 || row.length > 0) {
+        row.push(cell.trim());
+        if (row.some(v => v !== "")) rows.push(row);
+      }
+      return rows;
+    }
+
+    function toObjects(rows, marker) {
+      let headerIdx = 0;
+      for (let i = 0; i < Math.min(rows.length, 6); i++) {
+        if (rows[i].join("|").toUpperCase().includes(marker)) {
+          headerIdx = i;
+          break;
+        }
+      }
+      const headers = rows[headerIdx] || [];
+      const list = [];
+      for (let r = headerIdx + 1; r < rows.length; r++) {
+        const obj = {};
+        let hasVal = false;
+        headers.forEach((h, idx) => {
+          if (!h) return;
+          const v = rows[r][idx] || "";
+          if (v !== "") hasVal = true;
+          obj[h] = v;
+        });
+        if (hasVal) list.push(obj);
+      }
+      return list;
+    }
+
+    async function loadFromGitHub(bust) {
+      const url = bust ? `${JSON_PATH}?t=${Date.now()}` : JSON_PATH;
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error("JSON belum ada di GitHub");
+      const json = await res.json();
+      appData.temuan = Array.isArray(json.temuan) ? json.temuan : [];
+      appData.beritaAcara = Array.isArray(json.berita_acara) ? json.berita_acara : [];
+      appData.updated = json.updated_at_wib || json.updated_at || "-";
+      appData.source = "GitHub (data/data_temuan_ba.json)";
+      appData.error = "";
+    }
+
+    async function loadFromSheets() {
+      const u1 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_TEMUAN}`;
+      const u2 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_BA}`;
+      const [r1, r2] = await Promise.all([fetch(u1), fetch(u2)]);
+      if (!r1.ok || !r2.ok) throw new Error("Gagal ambil CSV Google Sheets");
+
+      const rawT = toObjects(parseCSV(await r1.text()), "URAIAN TEMUAN");
+      const rawB = toObjects(parseCSV(await r2.text()), "NO BERITA ACARA");
+
+      appData.temuan = rawT.map((r, i) => ({
+        no: r["NO"] || String(i + 1),
+        divisi: r["DIVISI"] || "",
+        uraian_temuan: r["URAIAN TEMUAN"] || "",
+        lokasi: r["LOKASI"] || "",
+        gedung: r["GEDUNG"] || "",
+        tanggal_temuan: r["TANGGAL TEMUAN"] || "",
+        jenis_temuan: r["TEMUAN (PREVENTIVE/BA"] || "",
+        tindak_lanjut: r["TINDAK LANJUT"] || "",
+        tanggal_perbaikan: r["TANGGAL PERBAIKAN"] || "",
+        status: r["STATUS (TUNDA/SELESAI)"] || "",
+        keterangan: r["KETERANGAN"] || ""
+      }));
+
+      appData.beritaAcara = rawB.map(r => ({
+        no_berita_acara: r["NO BERITA ACARA"] || "",
+        pelapor: r["PELAPOR"] || "",
+        divisi: r["DIVISI"] || "",
+        uraian: r["URAIAN"] || "",
+        tanggal: r["TANGGAL"] || "",
+        lokasi_lantai: r["LOKASI/LANTAI"] || "",
+        gedung: r["GEDUNG"] || "",
+        keterangan: r["KETERANGAN"] || ""
+      }));
+
+      appData.updated = new Date().toLocaleString("id-ID");
+      appData.source = "Google Sheets";
+      appData.error = "";
+    }
+
+    async function loadData(bust = false) {
+      appData.error = "";
+      try {
+        await loadFromGitHub(bust);
+      } catch (e1) {
+        try {
+          await loadFromSheets();
+        } catch (e2) {
+          appData.source = "Belum terhubung";
+          appData.error = "Data belum tersedia di GitHub / Google Sheets masih privat.";
+        }
+      }
+      refreshSummary();
+      renderTable();
+    }
+
+    function onUploadJson(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          const j = JSON.parse(ev.target.result);
+          appData.temuan = Array.isArray(j.temuan) ? j.temuan : [];
+          appData.beritaAcara = Array.isArray(j.berita_acara) ? j.berita_acara : [];
+          appData.source = `File (${file.name})`;
+          appData.updated = j.updated_at_wib || j.updated_at || new Date().toLocaleString("id-ID");
+          appData.error = "";
+          refreshSummary();
+          renderTable();
+        } catch (err) {
+          appData.error = "JSON tidak valid";
+          renderTable();
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function refreshSummary() {
+      const tTotal = appData.temuan.length;
+      const tSelesai = appData.temuan.filter(x => String(x.status || "").toUpperCase().includes("SELESAI")).length;
+      const tTunda = Math.max(0, tTotal - tSelesai);
+      const bTotal = appData.beritaAcara.length;
+
+      document.getElementById("count-temuan").textContent = tTotal;
+      document.getElementById("count-ba").textContent = bTotal;
+
+      document.getElementById("sum-temuan").textContent = tTotal;
+      document.getElementById("sum-selesai").textContent = tSelesai;
+      document.getElementById("sum-tunda").textContent = tTunda;
+      document.getElementById("sum-ba").textContent = bTotal;
+
+      document.getElementById("sourceLabel").textContent = "Sumber: " + appData.source;
+      document.getElementById("updateLabel").textContent = "Update: " + appData.updated;
+    }
+
+    function selectSheet(sheetName) {
+      appData.sheet = sheetName;
+      document.getElementById("btn-sheet-temuan").classList.toggle("active", sheetName === "TEMUAN");
+      document.getElementById("btn-sheet-ba").classList.toggle("active", sheetName === "BA");
+      renderTable();
+    }
+
+    function badge(val) {
+      const s = String(val || "").trim();
+      if (!s) return `<span class="badge badge-wait">BELUM DIISI</span>`;
+      if (s.toUpperCase().includes("SELESAI")) return `<span class="badge badge-ok">${s}</span>`;
+      return `<span class="badge badge-wait">${s}</span>`;
+    }
+
+    function passFilter(item) {
+      const gedung = document.getElementById("gedungFilter").value.trim().toUpperCase();
+      const q = document.getElementById("searchInput").value.trim().toLowerCase();
+      if (gedung && !String(item.gedung || "").toUpperCase().includes(gedung)) return false;
+      if (q && !JSON.stringify(item).toLowerCase().includes(q)) return false;
+      return true;
+    }
+
+    function renderTable() {
+      const area = document.getElementById("tableArea");
+      const heading = document.getElementById("sheetHeading");
+      const rowInfo = document.getElementById("rowInfo");
+
+      if (appData.sheet === "TEMUAN") {
+        heading.textContent = "Sheet: TEMUAN";
+        const rows = appData.temuan.filter(passFilter);
+        rowInfo.textContent = `${rows.length} baris`;
+
+        if (!rows.length) {
+          area.innerHTML = `<div class="empty">${appData.error || "Belum ada data pada sheet TEMUAN."}</div>`;
+          return;
+        }
+
+        area.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Divisi</th>
+                <th>Uraian Temuan</th>
+                <th>Lokasi</th>
+                <th>Gedung</th>
+                <th>Tgl Temuan</th>
+                <th>Temuan (Preventive/BA)</th>
+                <th>Tindak Lanjut</th>
+                <th>Tgl Perbaikan</th>
+                <th>Status</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td>${r.no || "-"}</td>
+                  <td><strong>${r.divisi || "-"}</strong></td>
+                  <td>${r.uraian_temuan || "-"}</td>
+                  <td>${r.lokasi || "-"}</td>
+                  <td>${r.gedung || "-"}</td>
+                  <td>${r.tanggal_temuan || "-"}</td>
+                  <td>${r.jenis_temuan || "-"}</td>
+                  <td>${r.tindak_lanjut || "-"}</td>
+                  <td>${r.tanggal_perbaikan || "-"}</td>
+                  <td>${badge(r.status)}</td>
+                  <td>${r.keterangan || "-"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      } else {
+        heading.textContent = "Sheet: BERITA ACARA";
+        const rows = appData.beritaAcara.filter(passFilter);
+        rowInfo.textContent = `${rows.length} baris`;
+
+        if (!rows.length) {
+          area.innerHTML = `<div class="empty">${appData.error || "Belum ada data pada sheet BERITA ACARA."}</div>`;
+          return;
+        }
+
+        area.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>No Berita Acara</th>
+                <th>Pelapor</th>
+                <th>Divisi</th>
+                <th>Uraian</th>
+                <th>Tanggal</th>
+                <th>Lokasi/Lantai</th>
+                <th>Gedung</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td><strong>${r.no_berita_acara || "-"}</strong></td>
+                  <td>${r.pelapor || "-"}</td>
+                  <td>${r.divisi || "-"}</td>
+                  <td>${r.uraian || "-"}</td>
+                  <td>${r.tanggal || "-"}</td>
+                  <td>${r.lokasi_lantai || "-"}</td>
+                  <td>${r.gedung || "-"}</td>
+                  <td>${r.keterangan || "-"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      }
+    }
+
+    function downloadData() {
+      const blob = new Blob(
+        [JSON.stringify({
+          exported_at: new Date().toISOString(),
+          temuan: appData.temuan,
+          berita_acara: appData.beritaAcara
+        }, null, 2)],
+        { type: "application/json" }
+      );
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "data_temuan_berita_acara.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    loadData(false);
+  </script>
+</body>
+</html>
