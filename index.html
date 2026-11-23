@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temuan & Berita Acara — KPDJP</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --primary: #0f3d5e;
+      --primary-hover: #16527d;
+      --accent: #0284c7;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --success-bg: #dcfce7;
+      --success-text: #166534;
+      --warn-bg: #fef9c3;
+      --warn-text: #854d0e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      color: var(--primary);
+    }
+
+    .header p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: #f8fafc;
+    }
+
+    .controls {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tab-btn {
+      background: #f1f5f9;
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    input[type="text"], select {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      background: #fff;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8fafc;
+      color: var(--primary);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge-selesai {
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .badge-tunda {
+      background: var(--warn-bg);
+      color: var(--warn-text);
+    }
+
+    .footer-info {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>Monitoring Temuan & Berita Acara</h1>
+        <p>Tersinkronisasi dengan GitHub & Google Sheets • KPDJP</p>
+      </div>
+      <div class="actions">
+        <button class="btn-outline" onclick="loadData(true)">Muat Ulang Data</button>
+        <button class="btn-primary" onclick="downloadJson()">Unduh JSON</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="tabs">
+        <button id="btnTemuan" class="tab-btn active" onclick="setTab('TEMUAN')">
+          Temuan (<span id="countTemuan">0</span>)
+        </button>
+        <button id="btnBA" class="tab-btn" onclick="setTab('BA')">
+          Berita Acara (<span id="countBA">0</span>)
+        </button>
+      </div>
+
+      <div class="filters">
+        <select id="filterGedung" onchange="render()">
+          <option value="">Semua Gedung</option>
+          <option value="MM">MM</option>
+          <option value="CAKTI">CAKTI</option>
+          <option value="BUDDHI">BUDDHI</option>
+          <option value="BHAKTI">BHAKTI</option>
+        </select>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Cari uraian, divisi, lokasi..."
+          oninput="render()"
+        />
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="tableWrap">Memuat data...</div>
+      <div class="footer-info">
+        <span id="statusText">Menyiapkan data...</span>
+        <span id="lastSyncText">-</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SHEET_ID = "1kW3IsDOgG7uhh02mJc3DYz_d8bjDt_-nKQxvbB5A8EE";
+    const GID_TEMUAN = "0";
+    const GID_BA = "1339186549";
+    const GITHUB_JSON_PATH = "./data/data_temuan_ba.json";
+
+    let state = {
+      tab: "TEMUAN",
+      temuan: [],
+      beritaAcara: [],
+      updatedAt: "-"
+    };
+
+    function parseCSV(csvText) {
+      const rows = [];
+      let row = [];
+      let cur = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < csvText.length; i++) {
+        const ch = csvText[i];
+        const next = csvText[i + 1];
+        if (ch === '"' && inQuotes && next === '"') {
+          cur += '"';
+          i++;
+        } else if (ch === '"') {
+          inQuotes = !inQuotes;
+        } else if (ch === "," && !inQuotes) {
+          row.push(cur.trim());
+          cur = "";
+        } else if ((ch === "\n" || ch === "\r") && !inQuotes) {
+          if (ch === "\r" && next === "\n") i++;
+          row.push(cur.trim());
+          if (row.some(x => x !== "")) rows.push(row);
+          row = [];
+          cur = "";
+        } else {
+          cur += ch;
+        }
+      }
+      if (cur.length > 0 || row.length > 0) {
+        row.push(cur.trim());
+        if (row.some(x => x !== "")) rows.push(row);
+      }
+      return rows;
+    }
+
+    function mapRows(rows, marker) {
+      let headerIdx = 0;
+      for (let i = 0; i < Math.min(rows.length, 6); i++) {
+        if (rows[i].join("|").toUpperCase().includes(marker)) {
+          headerIdx = i;
+          break;
+        }
+      }
+      const headers = rows[headerIdx] || [];
+      const list = [];
+      for (let r = headerIdx + 1; r < rows.length; r++) {
+        const item = {};
+        let nonEmpty = false;
+        headers.forEach((h, idx) => {
+          if (!h) return;
+          const v = rows[r][idx] || "";
+          if (v !== "") nonEmpty = true;
+          item[h] = v;
+        });
+        if (nonEmpty) list.push(item);
+      }
+      return list;
+    }
+
+    async function fetchFromSheetsFallback() {
+      const urlTemuan = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_TEMUAN}`;
+      const urlBA = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_BA}`;
+
+      const [resT, resB] = await Promise.all([fetch(urlTemuan), fetch(urlBA)]);
+      if (!resT.ok || !resB.ok) {
+        throw new Error("Gagal memuat CSV dari Google Sheets.");
+      }
+
+      const rawT = mapRows(parseCSV(await resT.text()), "URAIAN TEMUAN");
+      const rawB = mapRows(parseCSV(await resB.text()), "NO BERITA ACARA");
+
+      state.temuan = rawT.map((r, i) => ({
+        no: r["NO"] || String(i + 1),
+        divisi: r["DIVISI"] || "",
+        uraian_temuan: r["URAIAN TEMUAN"] || "",
+        lokasi: r["LOKASI"] || "",
+        gedung: r["GEDUNG"] || "",
+        tanggal_temuan: r["TANGGAL TEMUAN"] || "",
+        jenis_temuan: r["TEMUAN (PREVENTIVE/BA"] || "",
+        tindak_lanjut: r["TINDAK LANJUT"] || "",
+        tanggal_perbaikan: r["TANGGAL PERBAIKAN"] || "",
+        status: r["STATUS (TUNDA/SELESAI)"] || "",
+        keterangan: r["KETERANGAN"] || ""
+      }));
+
+      state.beritaAcara = rawB.map(r => ({
+        no_berita_acara: r["NO BERITA ACARA"] || "",
+        pelapor: r["PELAPOR"] || "",
+        divisi: r["DIVISI"] || "",
+        uraian: r["URAIAN"] || "",
+        tanggal: r["TANGGAL"] || "",
+        lokasi_lantai: r["LOKASI/LANTAI"] || "",
+        gedung: r["GEDUNG"] || "",
+        keterangan: r["KETERANGAN"] || ""
+      }));
+
+      state.updatedAt = "Langsung dari Google Sheets (" + new Date().toLocaleTimeString("id-ID") + ")";
+    }
+
+    async function loadData(forceReload = false) {
+      const statusText = document.getElementById("statusText");
+      statusText.textContent = "Memuat data...";
+
+      const cacheBuster = forceReload ? `?t=${Date.now()}` : "";
+      try {
+        const res = await fetch(`${GITHUB_JSON_PATH}${cacheBuster}`, { cache: "no-store" });
+        if (!res.ok) throw new Error("JSON GitHub belum tersedia");
+        const json = await res.json();
+
+        state.temuan = Array.isArray(json.temuan) ? json.temuan : [];
+        state.beritaAcara = Array.isArray(json.berita_acara) ? json.berita_acara : [];
+        state.updatedAt = json.updated_at_wib || json.updated_at || "-";
+        statusText.textContent = "Sumber: GitHub (data/data_temuan_ba.json)";
+      } catch (err) {
+        try {
+          await fetchFromSheetsFallback();
+          statusText.textContent = "Sumber: Google Sheets (fallback)";
+        } catch (sheetErr) {
+          statusText.textContent = "Error: " + sheetErr.message;
+        }
+      }
+
+      document.getElementById("countTemuan").textContent = state.temuan.length;
+      document.getElementById("countBA").textContent = state.beritaAcara.length;
+      document.getElementById("lastSyncText").textContent = "Update: " + state.updatedAt;
+      render();
+    }
+
+    function statusBadge(val) {
+      const upper = (val || "").toUpperCase();
+      if (upper.includes("SELESAI")) return `<span class="badge badge-selesai">${val}</span>`;
+      if (upper.includes("TUNDA")) return `<span class="badge badge-tunda">${val}</span>`;
+      return val || "-";
+    }
+
+    function matchesFilter(row) {
+      const gedungFilter = document.getElementById("filterGedung").value.trim().toUpperCase();
+      const q = document.getElementById("searchInput").value.trim().toLowerCase();
+
+      const rowGedung = String(row.gedung || "").toUpperCase();
+      if (gedungFilter && !rowGedung.includes(gedungFilter)) return false;
+
+      if (!q) return true;
+      return JSON.stringify(row).toLowerCase().includes(q);
+    }
+
+    function render() {
+      const wrap = document.getElementById("tableWrap");
+
+      if (state.tab === "TEMUAN") {
+        const rows = state.temuan.filter(matchesFilter);
+        if (!rows.length) {
+          wrap.innerHTML = "<p>Tidak ada data temuan yang cocok.</p>";
+          return;
+        }
+        wrap.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>NO</th>
+                <th>DIVISI</th>
+                <th>URAIAN TEMUAN</th>
+                <th>LOKASI</th>
+                <th>GEDUNG</th>
+                <th>TGL TEMUAN</th>
+                <th>JENIS</th>
+                <th>TINDAK LANJUT</th>
+                <th>TGL PERBAIKAN</th>
+                <th>STATUS</th>
+                <th>KETERANGAN</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td>${r.no || "-"}</td>
+                  <td>${r.divisi || "-"}</td>
+                  <td>${r.uraian_temuan || "-"}</td>
+                  <td>${r.lokasi || "-"}</td>
+                  <td>${r.gedung || "-"}</td>
+                  <td>${r.tanggal_temuan || "-"}</td>
+                  <td>${r.jenis_temuan || "-"}</td>
+                  <td>${r.tindak_lanjut || "-"}</td>
+                  <td>${r.tanggal_perbaikan || "-"}</td>
+                  <td>${statusBadge(r.status)}</td>
+                  <td>${r.keterangan || "-"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      } else {
+        const rows = state.beritaAcara.filter(matchesFilter);
+        if (!rows.length) {
+          wrap.innerHTML = "<p>Tidak ada data berita acara yang cocok.</p>";
+          return;
+        }
+        wrap.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>NO BERITA ACARA</th>
+                <th>PELAPOR</th>
+                <th>DIVISI</th>
+                <th>URAIAN</th>
+                <th>TANGGAL</th>
+                <th>LOKASI/LANTAI</th>
+                <th>GEDUNG</th>
+                <th>KETERANGAN</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td>${r.no_berita_acara || "-"}</td>
+                  <td>${r.pelapor || "-"}</td>
+                  <td>${r.divisi || "-"}</td>
+                  <td>${r.uraian || "-"}</td>
+                  <td>${r.tanggal || "-"}</td>
+                  <td>${r.lokasi_lantai || "-"}</td>
+                  <td>${r.gedung || "-"}</td>
+                  <td>${r.keterangan || "-"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      }
+    }
+
+    function setTab(tab) {
+      state.tab = tab;
+      document.getElementById("btnTemuan").classList.toggle("active", tab === "TEMUAN");
+      document.getElementById("btnBA").classList.toggle("active", tab === "BA");
+      render();
+    }
+
+    function downloadJson() {
+      const blob = new Blob(
+        [JSON.stringify({
+          exported_at: new Date().toISOString(),
+          temuan: state.temuan,
+          berita_acara: state.beritaAcara
+        }, null, 2)],
+        { type: "application/json" }
+      );
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "data_temuan_ba.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    loadData(false);
+  </script>
+</body>
+</html>
