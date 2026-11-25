@@ -43,7 +43,6 @@
       margin: 0 auto;
     }
 
-    /* Header atas tetap di tempat saat scroll */
     .sticky-top {
       position: sticky;
       top: 0;
@@ -111,6 +110,15 @@
       transition: 0.15s ease;
     }
 
+    .btn-white {
+      background: #ffffff;
+      color: var(--primary-dark);
+    }
+
+    .btn-white:hover {
+      background: #f1f5f9;
+    }
+
     .btn-glass {
       background: rgba(255, 255, 255, 0.16);
       color: #ffffff;
@@ -121,7 +129,6 @@
       background: rgba(255, 255, 255, 0.26);
     }
 
-    /* Baris kontrol: 4 tombol utama + filter gedung/cari */
     .control-bar {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -148,7 +155,6 @@
       gap: 6px;
     }
 
-    /* 2 Tombol Sheet (Solid) */
     .btn-sheet {
       background: #e2e8f0;
       color: var(--text);
@@ -182,7 +188,6 @@
       background: var(--border);
     }
 
-    /* 2 Tombol Filter Status (Dashed/Outlined + Indikator Titik) */
     .status-group {
       display: flex;
       flex-wrap: wrap;
@@ -207,13 +212,8 @@
       display: inline-block;
     }
 
-    .btn-filter-selesai .dot {
-      background: #16a34a;
-    }
-
-    .btn-filter-tunda .dot {
-      background: #d97706;
-    }
+    .btn-filter-selesai .dot { background: #16a34a; }
+    .btn-filter-tunda .dot { background: #d97706; }
 
     .btn-filter-selesai:hover,
     .btn-filter-selesai.active-filter {
@@ -258,16 +258,20 @@
       gap: 6px;
     }
 
-    select, input[type="text"] {
+    select, input[type="text"], input[type="date"], textarea {
       padding: 7px 10px;
       border: 1px solid var(--border);
       border-radius: 8px;
       font-size: 12.5px;
       background: #ffffff;
       color: var(--text);
+      width: 100%;
     }
 
-    /* Area Tabel Diperluas */
+    .filter-group select, .filter-group input[type="text"] {
+      width: auto;
+    }
+
     .data-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -334,15 +338,8 @@
       white-space: nowrap;
     }
 
-    .badge-ok {
-      background: var(--success-bg);
-      color: var(--success-text);
-    }
-
-    .badge-wait {
-      background: var(--warn-bg);
-      color: var(--warn-text);
-    }
+    .badge-ok { background: var(--success-bg); color: var(--success-text); }
+    .badge-wait { background: var(--warn-bg); color: var(--warn-text); }
 
     .empty {
       padding: 36px 20px;
@@ -363,13 +360,103 @@
       color: var(--muted);
     }
 
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--surface);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+      border: 1px solid var(--border);
+    }
+
+    .modal-head {
+      padding: 14px 20px;
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-head h3 {
+      font-size: 15px;
+      color: var(--primary-dark);
+    }
+
+    .modal-body {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .modal-foot {
+      padding: 12px 20px;
+      background: var(--surface-alt);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-cancel {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    .form-msg {
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .form-msg.err { display: block; background: #fee2e2; color: #b91c1c; }
+    .form-msg.ok { display: block; background: var(--success-bg); color: var(--success-text); }
+
     @media (max-width: 768px) {
-      .divider-v {
-        display: none;
-      }
-      .table-wrap {
-        max-height: 65vh;
-      }
+      .divider-v { display: none; }
+      .table-wrap { max-height: 65vh; }
     }
   </style>
 </head>
@@ -414,6 +501,7 @@
             </div>
           </div>
 
+          <button class="btn-white" onclick="openInputModal()">+ Input Data</button>
           <button class="btn-glass" onclick="loadData(true)">↻ Muat Ulang</button>
         </div>
       </div>
@@ -451,12 +539,151 @@
     </div>
   </div>
 
+  <div id="inputModal" class="modal-backdrop" onclick="if(event.target===this) closeInputModal()">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="modalTitle">Input Data Baru ke Google Sheets</h3>
+        <button type="button" class="btn-cancel" onclick="closeInputModal()">✕</button>
+      </div>
+      <form id="dataForm" onsubmit="submitFormData(event)">
+        <div class="modal-body">
+          <div class="field">
+            <label for="inputType">Jenis Data (Sheet Tujuan)</label>
+            <select id="inputType" onchange="toggleFormFields()">
+              <option value="TEMUAN">Sheet TEMUAN</option>
+              <option value="BA">Sheet BERITA ACARA</option>
+            </select>
+          </div>
+
+          <div id="fieldsTemuan">
+            <div class="form-grid" style="margin-bottom:10px;">
+              <div class="field">
+                <label for="t_no_ba">No BA (jika ada)</label>
+                <input id="t_no_ba" type="text" placeholder="Contoh: BA/001/..." />
+              </div>
+              <div class="field">
+                <label for="t_divisi">Divisi *</label>
+                <input id="t_divisi" type="text" placeholder="Contoh: ELEKTRONIK / ELEKTRIK" />
+              </div>
+              <div class="field">
+                <label for="t_gedung">Gedung *</label>
+                <select id="t_gedung">
+                  <option value="MM">MM</option>
+                  <option value="Cakti">Cakti</option>
+                  <option value="Buddhi">Buddhi</option>
+                  <option value="Bhakti">Bhakti</option>
+                  <option value="KPDJP">KPDJP</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="t_lokasi">Lokasi</label>
+                <input id="t_lokasi" type="text" placeholder="Contoh: R. Rapat Lt. 5" />
+              </div>
+              <div class="field">
+                <label for="t_tgl_temuan">Tanggal Temuan</label>
+                <input id="t_tgl_temuan" type="date" />
+              </div>
+              <div class="field">
+                <label for="t_status">Status</label>
+                <select id="t_status">
+                  <option value="Tunda">Tunda</option>
+                  <option value="Selesai">Selesai</option>
+                </select>
+              </div>
+            </div>
+            <div class="field" style="margin-bottom:10px;">
+              <label for="t_uraian">Uraian Temuan *</label>
+              <textarea id="t_uraian" rows="2" placeholder="Jelaskan temuan..."></textarea>
+            </div>
+            <div class="form-grid">
+              <div class="field">
+                <label for="t_jenis">Temuan (Preventive/BA)</label>
+                <input id="t_jenis" type="text" placeholder="Contoh: Temuan Preventive / BA" />
+              </div>
+              <div class="field">
+                <label for="t_tindak">Tindak Lanjut</label>
+                <input id="t_tindak" type="text" placeholder="Tindakan / rencana perbaikan" />
+              </div>
+              <div class="field">
+                <label for="t_tgl_perbaikan">Tanggal Perbaikan</label>
+                <input id="t_tgl_perbaikan" type="date" />
+              </div>
+              <div class="field">
+                <label for="t_ket">Keterangan</label>
+                <input id="t_ket" type="text" placeholder="Catatan tambahan" />
+              </div>
+            </div>
+          </div>
+
+          <div id="fieldsBa" style="display:none;">
+            <div class="form-grid" style="margin-bottom:10px;">
+              <div class="field">
+                <label for="b_no">No Berita Acara *</label>
+                <input id="b_no" type="text" placeholder="Contoh: 001/BA/BM/2026" />
+              </div>
+              <div class="field">
+                <label for="b_pelapor">Pelapor *</label>
+                <input id="b_pelapor" type="text" placeholder="Nama pelapor" />
+              </div>
+              <div class="field">
+                <label for="b_divisi">Divisi</label>
+                <input id="b_divisi" type="text" placeholder="Divisi terkait" />
+              </div>
+              <div class="field">
+                <label for="b_tanggal">Tanggal</label>
+                <input id="b_tanggal" type="date" />
+              </div>
+              <div class="field">
+                <label for="b_lokasi">Lokasi / Lantai</label>
+                <input id="b_lokasi" type="text" placeholder="Contoh: Lt. 2 / Lobby" />
+              </div>
+              <div class="field">
+                <label for="b_gedung">Gedung *</label>
+                <select id="b_gedung">
+                  <option value="MM">MM</option>
+                  <option value="Cakti">Cakti</option>
+                  <option value="Buddhi">Buddhi</option>
+                  <option value="Bhakti">Bhakti</option>
+                  <option value="KPDJP">KPDJP</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="b_status">Status</label>
+                <select id="b_status">
+                  <option value="Tunda">Tunda</option>
+                  <option value="Selesai">Selesai</option>
+                </select>
+              </div>
+            </div>
+            <div class="field" style="margin-bottom:10px;">
+              <label for="b_uraian">Uraian *</label>
+              <textarea id="b_uraian" rows="2" placeholder="Uraian berita acara..."></textarea>
+            </div>
+            <div class="field">
+              <label for="b_ket">Keterangan</label>
+              <input id="b_ket" type="text" placeholder="Keterangan tambahan" />
+            </div>
+          </div>
+
+          <div id="formMsg" class="form-msg"></div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn-cancel" onclick="closeInputModal()">Batal</button>
+          <button type="submit" id="btnSubmitForm" class="btn-primary">Simpan ke Google Sheets</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script>
     const SHEET_ID = "1kW3IsDOgG7uhh02mJc3DYz_d8bjDt_-nKQxvbB5A8EE";
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v7";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v8";
+
+    // Isi dengan URL Web App dari Google Apps Script (hasil Deploy -> Web App)
+    const WEB_APP_URL = "";
 
     const appData = {
       sheet: "TEMUAN",
@@ -666,6 +893,122 @@
 
       refreshSummary();
       renderTable();
+    }
+
+    function openInputModal() {
+      const msg = document.getElementById("formMsg");
+      msg.className = "form-msg";
+      msg.textContent = "";
+      document.getElementById("inputType").value = appData.sheet === "BA" ? "BA" : "TEMUAN";
+      toggleFormFields();
+      document.getElementById("inputModal").classList.add("open");
+    }
+
+    function closeInputModal() {
+      document.getElementById("inputModal").classList.remove("open");
+    }
+
+    function toggleFormFields() {
+      const isBa = document.getElementById("inputType").value === "BA";
+      document.getElementById("fieldsTemuan").style.display = isBa ? "none" : "block";
+      document.getElementById("fieldsBa").style.display = isBa ? "block" : "none";
+    }
+
+    async function submitFormData(e) {
+      e.preventDefault();
+      const btn = document.getElementById("btnSubmitForm");
+      const msg = document.getElementById("formMsg");
+      msg.className = "form-msg";
+      msg.textContent = "";
+
+      const type = document.getElementById("inputType").value;
+      let payloadData = {};
+
+      if (type === "TEMUAN") {
+        const divisi = document.getElementById("t_divisi").value.trim();
+        const uraian = document.getElementById("t_uraian").value.trim();
+        if (!divisi || !uraian) {
+          msg.className = "form-msg err";
+          msg.textContent = "Divisi dan Uraian Temuan wajib diisi.";
+          return;
+        }
+        payloadData = {
+          no: String(appData.temuan.length + 1),
+          no_ba: document.getElementById("t_no_ba").value.trim(),
+          divisi,
+          uraian_temuan: uraian,
+          lokasi: document.getElementById("t_lokasi").value.trim(),
+          gedung: document.getElementById("t_gedung").value,
+          tanggal_temuan: document.getElementById("t_tgl_temuan").value,
+          jenis_temuan: document.getElementById("t_jenis").value.trim(),
+          tindak_lanjut: document.getElementById("t_tindak").value.trim(),
+          tanggal_perbaikan: document.getElementById("t_tgl_perbaikan").value,
+          status: document.getElementById("t_status").value,
+          keterangan: document.getElementById("t_ket").value.trim()
+        };
+      } else {
+        const noBa = document.getElementById("b_no").value.trim();
+        const pelapor = document.getElementById("b_pelapor").value.trim();
+        const uraian = document.getElementById("b_uraian").value.trim();
+        if (!noBa || !pelapor || !uraian) {
+          msg.className = "form-msg err";
+          msg.textContent = "No Berita Acara, Pelapor, dan Uraian wajib diisi.";
+          return;
+        }
+        payloadData = {
+          no_berita_acara: noBa,
+          pelapor,
+          divisi: document.getElementById("b_divisi").value.trim(),
+          uraian,
+          tanggal: document.getElementById("b_tanggal").value,
+          lokasi_lantai: document.getElementById("b_lokasi").value.trim(),
+          gedung: document.getElementById("b_gedung").value,
+          status: document.getElementById("b_status").value,
+          keterangan: document.getElementById("b_ket").value.trim()
+        };
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Menyimpan...";
+
+      try {
+        if (!WEB_APP_URL) {
+          throw new Error("WEB_APP_URL belum diisi. Isi URL Web App Apps Script terlebih dahulu agar tersimpan ke Google Sheets.");
+        }
+
+        const res = await fetch(WEB_APP_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ type, data: payloadData })
+        });
+        const result = await res.json();
+        if (!result.ok) throw new Error(result.error || "Gagal menyimpan ke Google Sheets.");
+
+        if (type === "TEMUAN") {
+          appData.temuan.push(normalizeTemuanItem(payloadData, appData.temuan.length));
+          selectSheet("TEMUAN");
+        } else {
+          appData.beritaAcara.push(normalizeBaItem(payloadData));
+          selectSheet("BA");
+        }
+
+        appData.updated = new Date().toLocaleString("id-ID");
+        appData.source = "Google Sheets (tersimpan)";
+        saveCache();
+        refreshSummary();
+        renderTable();
+
+        msg.className = "form-msg ok";
+        msg.textContent = "Berhasil tersimpan ke Google Sheets!";
+        document.getElementById("dataForm").reset();
+        setTimeout(() => closeInputModal(), 700);
+      } catch (err) {
+        msg.className = "form-msg err";
+        msg.textContent = err.message || String(err);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Simpan ke Google Sheets";
+      }
     }
 
     function refreshSummary() {
