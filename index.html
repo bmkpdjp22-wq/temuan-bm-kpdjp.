@@ -83,7 +83,7 @@
       gap: 8px;
     }
 
-    button, .upload-btn {
+    button {
       border: none;
       border-radius: 10px;
       padding: 10px 15px;
@@ -94,15 +94,6 @@
       align-items: center;
       gap: 6px;
       transition: 0.15s ease;
-    }
-
-    .btn-white {
-      background: #ffffff;
-      color: var(--primary-dark);
-    }
-
-    .btn-white:hover {
-      background: #f1f5f9;
     }
 
     .btn-glass {
@@ -191,6 +182,37 @@
       border-radius: 12px;
       padding: 14px 16px;
       box-shadow: var(--shadow);
+      text-align: left;
+      transition: 0.15s ease;
+    }
+
+    /* Gaya Tombol Filter pada Summary Box */
+    button.summary-btn {
+      display: block;
+      width: 100%;
+      cursor: pointer;
+      border: 1.5px solid var(--border);
+    }
+
+    button.summary-btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    button.summary-btn.active-filter {
+      border-color: var(--primary);
+      background: #f0f7ff;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.16);
+    }
+
+    button.summary-btn.active-selesai {
+      border-color: var(--success-text);
+      background: #f0fdf4;
+    }
+
+    button.summary-btn.active-tunda {
+      border-color: var(--warn-text);
+      background: #fffbeb;
     }
 
     .summary-box .label {
@@ -198,6 +220,16 @@
       font-weight: 700;
       color: var(--muted);
       text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .filter-hint {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: none;
     }
 
     .summary-box .num {
@@ -306,11 +338,6 @@
       </div>
       <div class="topbar-actions">
         <button class="btn-glass" onclick="loadData(true)">↻ Muat Ulang</button>
-        <label class="btn-glass upload-btn" for="fileInput">
-          ↑ Muat JSON
-          <input id="fileInput" type="file" accept=".json" style="display:none" onchange="onUploadJson(event)" />
-        </label>
-        <button class="btn-white" onclick="downloadData()">↓ Unduh JSON</button>
       </div>
     </div>
 
@@ -338,18 +365,30 @@
     </div>
 
     <div class="summary-row">
-      <div class="summary-box">
-        <div class="label">Total Sheet Temuan</div>
+      <button type="button" id="card-all" class="summary-box summary-btn" onclick="setStatusFilter('ALL')" title="Tampilkan semua temuan">
+        <div class="label">
+          <span>Total Sheet Temuan</span>
+          <span class="filter-hint" id="hint-all">Semua</span>
+        </div>
         <div class="num" id="sum-temuan">0</div>
-      </div>
-      <div class="summary-box">
-        <div class="label">Temuan Selesai</div>
-        <div class="num" id="sum-selesai">0</div>
-      </div>
-      <div class="summary-box">
-        <div class="label">Temuan Tunda</div>
-        <div class="num" id="sum-tunda">0</div>
-      </div>
+      </button>
+
+      <button type="button" id="card-selesai" class="summary-box summary-btn" onclick="setStatusFilter('SELESAI')" title="Klik untuk filter Temuan Selesai">
+        <div class="label">
+          <span>Temuan Selesai</span>
+          <span class="filter-hint" id="hint-selesai">Filter</span>
+        </div>
+        <div class="num" id="sum-selesai" style="color: var(--success-text);">0</div>
+      </button>
+
+      <button type="button" id="card-tunda" class="summary-box summary-btn" onclick="setStatusFilter('TUNDA')" title="Klik untuk filter Temuan Tunda">
+        <div class="label">
+          <span>Temuan Tunda</span>
+          <span class="filter-hint" id="hint-tunda">Filter</span>
+        </div>
+        <div class="num" id="sum-tunda" style="color: var(--warn-text);">0</div>
+      </button>
+
       <div class="summary-box">
         <div class="label">Total Sheet Berita Acara</div>
         <div class="num" id="sum-ba">0</div>
@@ -379,6 +418,7 @@
 
     const appData = {
       sheet: "TEMUAN",
+      statusFilter: "ALL", // "ALL" | "SELESAI" | "TUNDA"
       temuan: [],
       beritaAcara: [],
       source: "-",
@@ -461,230 +501,3 @@
       const u2 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_BA}`;
       const [r1, r2] = await Promise.all([fetch(u1), fetch(u2)]);
       if (!r1.ok || !r2.ok) throw new Error("Gagal ambil CSV Google Sheets");
-
-      const rawT = toObjects(parseCSV(await r1.text()), "URAIAN TEMUAN");
-      const rawB = toObjects(parseCSV(await r2.text()), "NO BERITA ACARA");
-
-      appData.temuan = rawT.map((r, i) => ({
-        no: r["NO"] || String(i + 1),
-        divisi: r["DIVISI"] || "",
-        uraian_temuan: r["URAIAN TEMUAN"] || "",
-        lokasi: r["LOKASI"] || "",
-        gedung: r["GEDUNG"] || "",
-        tanggal_temuan: r["TANGGAL TEMUAN"] || "",
-        jenis_temuan: r["TEMUAN (PREVENTIVE/BA"] || "",
-        tindak_lanjut: r["TINDAK LANJUT"] || "",
-        tanggal_perbaikan: r["TANGGAL PERBAIKAN"] || "",
-        status: r["STATUS (TUNDA/SELESAI)"] || "",
-        keterangan: r["KETERANGAN"] || ""
-      }));
-
-      appData.beritaAcara = rawB.map(r => ({
-        no_berita_acara: r["NO BERITA ACARA"] || "",
-        pelapor: r["PELAPOR"] || "",
-        divisi: r["DIVISI"] || "",
-        uraian: r["URAIAN"] || "",
-        tanggal: r["TANGGAL"] || "",
-        lokasi_lantai: r["LOKASI/LANTAI"] || "",
-        gedung: r["GEDUNG"] || "",
-        keterangan: r["KETERANGAN"] || ""
-      }));
-
-      appData.updated = new Date().toLocaleString("id-ID");
-      appData.source = "Google Sheets";
-      appData.error = "";
-    }
-
-    async function loadData(bust = false) {
-      appData.error = "";
-      try {
-        await loadFromGitHub(bust);
-      } catch (e1) {
-        try {
-          await loadFromSheets();
-        } catch (e2) {
-          appData.source = "Belum terhubung";
-          appData.error = "Data belum tersedia di GitHub / Google Sheets masih privat.";
-        }
-      }
-      refreshSummary();
-      renderTable();
-    }
-
-    function onUploadJson(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        try {
-          const j = JSON.parse(ev.target.result);
-          appData.temuan = Array.isArray(j.temuan) ? j.temuan : [];
-          appData.beritaAcara = Array.isArray(j.berita_acara) ? j.berita_acara : [];
-          appData.source = `File (${file.name})`;
-          appData.updated = j.updated_at_wib || j.updated_at || new Date().toLocaleString("id-ID");
-          appData.error = "";
-          refreshSummary();
-          renderTable();
-        } catch (err) {
-          appData.error = "JSON tidak valid";
-          renderTable();
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    function refreshSummary() {
-      const tTotal = appData.temuan.length;
-      const tSelesai = appData.temuan.filter(x => String(x.status || "").toUpperCase().includes("SELESAI")).length;
-      const tTunda = Math.max(0, tTotal - tSelesai);
-      const bTotal = appData.beritaAcara.length;
-
-      document.getElementById("count-temuan").textContent = tTotal;
-      document.getElementById("count-ba").textContent = bTotal;
-
-      document.getElementById("sum-temuan").textContent = tTotal;
-      document.getElementById("sum-selesai").textContent = tSelesai;
-      document.getElementById("sum-tunda").textContent = tTunda;
-      document.getElementById("sum-ba").textContent = bTotal;
-
-      document.getElementById("sourceLabel").textContent = "Sumber: " + appData.source;
-      document.getElementById("updateLabel").textContent = "Update: " + appData.updated;
-    }
-
-    function selectSheet(sheetName) {
-      appData.sheet = sheetName;
-      document.getElementById("btn-sheet-temuan").classList.toggle("active", sheetName === "TEMUAN");
-      document.getElementById("btn-sheet-ba").classList.toggle("active", sheetName === "BA");
-      renderTable();
-    }
-
-    function badge(val) {
-      const s = String(val || "").trim();
-      if (!s) return `<span class="badge badge-wait">BELUM DIISI</span>`;
-      if (s.toUpperCase().includes("SELESAI")) return `<span class="badge badge-ok">${s}</span>`;
-      return `<span class="badge badge-wait">${s}</span>`;
-    }
-
-    function passFilter(item) {
-      const gedung = document.getElementById("gedungFilter").value.trim().toUpperCase();
-      const q = document.getElementById("searchInput").value.trim().toLowerCase();
-      if (gedung && !String(item.gedung || "").toUpperCase().includes(gedung)) return false;
-      if (q && !JSON.stringify(item).toLowerCase().includes(q)) return false;
-      return true;
-    }
-
-    function renderTable() {
-      const area = document.getElementById("tableArea");
-      const heading = document.getElementById("sheetHeading");
-      const rowInfo = document.getElementById("rowInfo");
-
-      if (appData.sheet === "TEMUAN") {
-        heading.textContent = "Sheet: TEMUAN";
-        const rows = appData.temuan.filter(passFilter);
-        rowInfo.textContent = `${rows.length} baris`;
-
-        if (!rows.length) {
-          area.innerHTML = `<div class="empty">${appData.error || "Belum ada data pada sheet TEMUAN."}</div>`;
-          return;
-        }
-
-        area.innerHTML = `
-          <table>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Divisi</th>
-                <th>Uraian Temuan</th>
-                <th>Lokasi</th>
-                <th>Gedung</th>
-                <th>Tgl Temuan</th>
-                <th>Temuan (Preventive/BA)</th>
-                <th>Tindak Lanjut</th>
-                <th>Tgl Perbaikan</th>
-                <th>Status</th>
-                <th>Keterangan</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${rows.map(r => `
-                <tr>
-                  <td>${r.no || "-"}</td>
-                  <td><strong>${r.divisi || "-"}</strong></td>
-                  <td>${r.uraian_temuan || "-"}</td>
-                  <td>${r.lokasi || "-"}</td>
-                  <td>${r.gedung || "-"}</td>
-                  <td>${r.tanggal_temuan || "-"}</td>
-                  <td>${r.jenis_temuan || "-"}</td>
-                  <td>${r.tindak_lanjut || "-"}</td>
-                  <td>${r.tanggal_perbaikan || "-"}</td>
-                  <td>${badge(r.status)}</td>
-                  <td>${r.keterangan || "-"}</td>
-                </tr>
-              `).join("")}
-            </tbody>
-          </table>
-        `;
-      } else {
-        heading.textContent = "Sheet: BERITA ACARA";
-        const rows = appData.beritaAcara.filter(passFilter);
-        rowInfo.textContent = `${rows.length} baris`;
-
-        if (!rows.length) {
-          area.innerHTML = `<div class="empty">${appData.error || "Belum ada data pada sheet BERITA ACARA."}</div>`;
-          return;
-        }
-
-        area.innerHTML = `
-          <table>
-            <thead>
-              <tr>
-                <th>No Berita Acara</th>
-                <th>Pelapor</th>
-                <th>Divisi</th>
-                <th>Uraian</th>
-                <th>Tanggal</th>
-                <th>Lokasi/Lantai</th>
-                <th>Gedung</th>
-                <th>Keterangan</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${rows.map(r => `
-                <tr>
-                  <td><strong>${r.no_berita_acara || "-"}</strong></td>
-                  <td>${r.pelapor || "-"}</td>
-                  <td>${r.divisi || "-"}</td>
-                  <td>${r.uraian || "-"}</td>
-                  <td>${r.tanggal || "-"}</td>
-                  <td>${r.lokasi_lantai || "-"}</td>
-                  <td>${r.gedung || "-"}</td>
-                  <td>${r.keterangan || "-"}</td>
-                </tr>
-              `).join("")}
-            </tbody>
-          </table>
-        `;
-      }
-    }
-
-    function downloadData() {
-      const blob = new Blob(
-        [JSON.stringify({
-          exported_at: new Date().toISOString(),
-          temuan: appData.temuan,
-          berita_acara: appData.beritaAcara
-        }, null, 2)],
-        { type: "application/json" }
-      );
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "data_temuan_berita_acara.json";
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    loadData(false);
-  </script>
-</body>
-</html>
