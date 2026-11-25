@@ -513,11 +513,11 @@
         <div class="filter-group">
           <select id="gedungFilter" onchange="renderTable()">
             <option value="">Semua Gedung</option>
-            <option value="MM">Gedung MM</option>
             <option value="CAKTI">Gedung Cakti</option>
             <option value="BUDDHI">Gedung Buddhi</option>
             <option value="BHAKTI">Gedung Bhakti</option>
-            <option value="KPDJP">KPDJP</option>
+            <option value="MARÍE MUHAMMAD">Gedung Maríe Muhammad</option>
+            <option value="LUAR KPDJP">Luar KPDJP</option>
           </select>
           <input id="searchInput" type="text" placeholder="Cari data / No BA..." oninput="renderTable()" />
         </div>
@@ -568,11 +568,11 @@
               <div class="field">
                 <label for="t_gedung">Gedung *</label>
                 <select id="t_gedung">
-                  <option value="MM">MM</option>
                   <option value="Cakti">Cakti</option>
                   <option value="Buddhi">Buddhi</option>
                   <option value="Bhakti">Bhakti</option>
-                  <option value="KPDJP">KPDJP</option>
+                  <option value="Maríe Muhammad">Maríe Muhammad</option>
+                  <option value="Luar KPDJP">Luar KPDJP</option>
                 </select>
               </div>
               <div class="field">
@@ -640,11 +640,11 @@
               <div class="field">
                 <label for="b_gedung">Gedung *</label>
                 <select id="b_gedung">
-                  <option value="MM">MM</option>
                   <option value="Cakti">Cakti</option>
                   <option value="Buddhi">Buddhi</option>
                   <option value="Bhakti">Bhakti</option>
-                  <option value="KPDJP">KPDJP</option>
+                  <option value="Maríe Muhammad">Maríe Muhammad</option>
+                  <option value="Luar KPDJP">Luar KPDJP</option>
                 </select>
               </div>
               <div class="field">
@@ -680,7 +680,7 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v8";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v9";
 
     // Isi dengan URL Web App dari Google Apps Script (hasil Deploy -> Web App)
     const WEB_APP_URL = "";
@@ -1089,6 +1089,14 @@
       return `<span class="badge badge-wait">${s}</span>`;
     }
 
+    function normalizeGedungKey(val) {
+      return String(val || "")
+        .toUpperCase()
+        .replace(/Í/g, "I")
+        .replace(/^GEDUNG\s+/, "")
+        .trim();
+    }
+
     function passFilter(item, isTemuan = false) {
       if (isTemuan && appData.statusFilter !== "ALL") {
         const isSelesai = String(item.status || "").toUpperCase().includes("SELESAI");
@@ -1096,9 +1104,9 @@
         if (appData.statusFilter === "TUNDA" && isSelesai) return false;
       }
 
-      const gedung = document.getElementById("gedungFilter").value.trim().toUpperCase();
+      const gedung = normalizeGedungKey(document.getElementById("gedungFilter").value);
       const q = document.getElementById("searchInput").value.trim().toLowerCase();
-      if (gedung && !String(item.gedung || "").toUpperCase().includes(gedung)) return false;
+      if (gedung && !normalizeGedungKey(item.gedung).includes(gedung)) return false;
       if (q && !JSON.stringify(item).toLowerCase().includes(q)) return false;
       return true;
     }
