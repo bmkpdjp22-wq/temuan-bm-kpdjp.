@@ -35,63 +35,73 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding: 0 16px 32px;
+      padding: 0 16px 24px;
     }
 
     .app {
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 0 auto;
     }
 
+    /* Header atas tetap di tempat saat scroll */
     .sticky-top {
       position: sticky;
       top: 0;
       z-index: 30;
       background: var(--bg);
-      padding-top: 14px;
-      padding-bottom: 6px;
+      padding-top: 12px;
+      padding-bottom: 8px;
     }
 
     .topbar {
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--accent) 100%);
       color: #ffffff;
       border-radius: 14px;
-      padding: 18px 22px;
+      padding: 14px 20px;
       box-shadow: var(--shadow);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 12px;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .badge-top {
       display: inline-block;
+      width: fit-content;
       background: rgba(255, 255, 255, 0.16);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 3px 10px;
+      padding: 2px 9px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 3px;
     }
 
     .topbar h1 {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
+      line-height: 1.2;
     }
 
-    .topbar p {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.88);
-      margin-top: 3px;
+    .topbar-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
     }
 
     button {
       border: none;
       border-radius: 9px;
-      padding: 8px 13px;
+      padding: 7px 12px;
       font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
@@ -111,52 +121,52 @@
       background: rgba(255, 255, 255, 0.26);
     }
 
-    .sheet-switcher {
+    /* Baris kontrol: 4 tombol utama + filter gedung/cari */
+    .control-bar {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 11px 16px;
+      padding: 9px 14px;
       box-shadow: var(--shadow);
-      margin-bottom: 12px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-    }
-
-    .nav-controls {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
       gap: 10px;
     }
 
-    .two-buttons {
+    .four-buttons-wrap {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 8px;
     }
 
-    /* Konsep 1: Tombol Sheet Utama (Solid) */
+    .sheet-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* 2 Tombol Sheet (Solid) */
     .btn-sheet {
       background: #e2e8f0;
       color: var(--text);
-      padding: 8px 14px;
-      border-radius: 9px;
-      font-size: 13px;
+      padding: 7px 13px;
+      border-radius: 8px;
+      font-size: 12.5px;
       font-weight: 700;
     }
 
     .btn-sheet.active {
       background: var(--primary);
       color: #ffffff;
-      box-shadow: 0 3px 10px rgba(11, 59, 96, 0.22);
+      box-shadow: 0 2px 8px rgba(11, 59, 96, 0.22);
     }
 
     .pill {
       background: rgba(15, 23, 42, 0.12);
-      padding: 2px 7px;
+      padding: 1px 7px;
       border-radius: 999px;
       font-size: 11px;
     }
@@ -168,12 +178,12 @@
 
     .divider-v {
       width: 1px;
-      height: 24px;
+      height: 22px;
       background: var(--border);
     }
 
-    /* Konsep 2: Tombol Filter Status (Dashed/Outlined + Ikon) */
-    .status-filter-buttons {
+    /* 2 Tombol Filter Status (Dashed/Outlined + Indikator Titik) */
+    .status-group {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -184,7 +194,7 @@
       background: var(--surface-alt);
       border: 1px dashed #94a3b8;
       border-radius: 999px;
-      padding: 6px 12px;
+      padding: 5px 11px;
       font-size: 12px;
       font-weight: 700;
       color: var(--text);
@@ -225,11 +235,11 @@
       background: rgba(15, 23, 42, 0.08);
       padding: 1px 6px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 10.5px;
     }
 
     .active-filter .filter-count {
-      background: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.78);
     }
 
     .btn-reset-filter {
@@ -237,7 +247,7 @@
       color: var(--info-text);
       border: 1px solid #bae6fd;
       border-radius: 999px;
-      padding: 5px 10px;
+      padding: 4px 10px;
       font-size: 11px;
       font-weight: 700;
     }
@@ -245,61 +255,29 @@
     .filter-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
     }
 
     select, input[type="text"] {
-      padding: 8px 11px;
+      padding: 7px 10px;
       border: 1px solid var(--border);
-      border-radius: 9px;
+      border-radius: 8px;
       font-size: 12.5px;
       background: #ffffff;
       color: var(--text);
     }
 
-    .summary-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 10px;
-      margin-bottom: 4px;
-    }
-
-    .summary-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      padding: 10px 13px;
-      box-shadow: var(--shadow);
-      text-align: left;
-    }
-
-    .summary-box .label {
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.2px;
-    }
-
-    .summary-box .num {
-      font-size: 19px;
-      font-weight: 800;
-      color: var(--primary-dark);
-      margin-top: 3px;
-      line-height: 1.2;
-    }
-
+    /* Area Tabel Diperluas */
     .data-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
       box-shadow: var(--shadow);
       overflow: hidden;
-      margin-top: 6px;
     }
 
     .data-card-head {
-      padding: 12px 18px;
+      padding: 11px 18px;
       background: var(--surface-alt);
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -310,14 +288,14 @@
     }
 
     .data-card-head h2 {
-      font-size: 14.5px;
+      font-size: 14px;
       color: var(--primary-dark);
     }
 
     .table-wrap {
       width: 100%;
-      max-height: calc(100vh - 365px);
-      min-height: 240px;
+      max-height: calc(100vh - 210px);
+      min-height: 360px;
       overflow: auto;
     }
 
@@ -367,14 +345,14 @@
     }
 
     .empty {
-      padding: 32px 20px;
+      padding: 36px 20px;
       text-align: center;
       color: var(--muted);
       line-height: 1.6;
     }
 
     .data-card-foot {
-      padding: 11px 18px;
+      padding: 10px 18px;
       background: var(--surface-alt);
       border-top: 1px solid var(--border);
       display: flex;
@@ -390,7 +368,7 @@
         display: none;
       }
       .table-wrap {
-        max-height: 55vh;
+        max-height: 65vh;
       }
     }
   </style>
@@ -399,48 +377,51 @@
   <div class="app">
     <div class="sticky-top">
       <div class="topbar">
-        <div>
+        <div class="title-wrap">
           <span class="badge-top">KPDJP • BUILDING MANAGEMENT</span>
           <h1>Monitoring Temuan & Berita Acara</h1>
-          <p>Pilih sheet <strong>Temuan</strong> atau <strong>Berita Acara</strong> untuk melihat data</p>
         </div>
-        <div>
+
+        <div class="topbar-right">
+          <div class="four-buttons-wrap">
+            <div class="sheet-group">
+              <button id="btn-sheet-temuan" class="btn-sheet active" onclick="selectSheet('TEMUAN')">
+                Temuan <span class="pill" id="count-temuan">0</span>
+              </button>
+              <button id="btn-sheet-ba" class="btn-sheet" onclick="selectSheet('BA')">
+                Berita Acara <span class="pill" id="count-ba">0</span>
+              </button>
+            </div>
+
+            <div class="divider-v"></div>
+
+            <div class="status-group" aria-label="Filter status">
+              <button type="button" id="btn-filter-selesai" class="btn-status-filter btn-filter-selesai" onclick="setStatusFilter('SELESAI')" title="Filter data Selesai">
+                <span class="dot"></span>
+                <span>Selesai</span>
+                <span class="filter-count" id="pill-selesai">0</span>
+              </button>
+
+              <button type="button" id="btn-filter-tunda" class="btn-status-filter btn-filter-tunda" onclick="setStatusFilter('TUNDA')" title="Filter data Tunda">
+                <span class="dot"></span>
+                <span>Tunda</span>
+                <span class="filter-count" id="pill-tunda">0</span>
+              </button>
+
+              <button type="button" id="btn-reset-filter" class="btn-reset-filter" style="display:none;" onclick="setStatusFilter('ALL')" title="Hapus filter status">
+                ✕ Reset
+              </button>
+            </div>
+          </div>
+
           <button class="btn-glass" onclick="loadData(true)">↻ Muat Ulang</button>
         </div>
       </div>
 
-      <div class="sheet-switcher">
-        <div class="nav-controls">
-          <div class="two-buttons">
-            <button id="btn-sheet-temuan" class="btn-sheet active" onclick="selectSheet('TEMUAN')">
-              Temuan <span class="pill" id="count-temuan">0</span>
-            </button>
-            <button id="btn-sheet-ba" class="btn-sheet" onclick="selectSheet('BA')">
-              Berita Acara <span class="pill" id="count-ba">0</span>
-            </button>
-          </div>
-
-          <div class="divider-v"></div>
-
-          <div class="status-filter-buttons" aria-label="Filter status temuan">
-            <button type="button" id="btn-filter-selesai" class="btn-status-filter btn-filter-selesai" onclick="setStatusFilter('SELESAI')" title="Filter data Selesai">
-              <span class="dot"></span>
-              <span>Selesai</span>
-              <span class="filter-count" id="pill-selesai">0</span>
-            </button>
-
-            <button type="button" id="btn-filter-tunda" class="btn-status-filter btn-filter-tunda" onclick="setStatusFilter('TUNDA')" title="Filter data Tunda">
-              <span class="dot"></span>
-              <span>Tunda</span>
-              <span class="filter-count" id="pill-tunda">0</span>
-            </button>
-
-            <button type="button" id="btn-reset-filter" class="btn-reset-filter" style="display:none;" onclick="setStatusFilter('ALL')" title="Hapus filter status">
-              ✕ Reset Filter
-            </button>
-          </div>
-        </div>
-
+      <div class="control-bar">
+        <span id="activeContextInfo" style="font-size:12px; color:var(--muted); font-weight:600;">
+          Menampilkan: Sheet TEMUAN (Semua Status)
+        </span>
         <div class="filter-group">
           <select id="gedungFilter" onchange="renderTable()">
             <option value="">Semua Gedung</option>
@@ -451,25 +432,6 @@
             <option value="KPDJP">KPDJP</option>
           </select>
           <input id="searchInput" type="text" placeholder="Cari data / No BA..." oninput="renderTable()" />
-        </div>
-      </div>
-
-      <div class="summary-row">
-        <div class="summary-box">
-          <div class="label">Total Sheet Temuan</div>
-          <div class="num" id="sum-temuan">0</div>
-        </div>
-        <div class="summary-box">
-          <div class="label">Temuan Selesai</div>
-          <div class="num" id="sum-selesai" style="color: var(--success-text);">0</div>
-        </div>
-        <div class="summary-box">
-          <div class="label">Temuan Tunda</div>
-          <div class="num" id="sum-tunda" style="color: var(--warn-text);">0</div>
-        </div>
-        <div class="summary-box">
-          <div class="label">Total Sheet Berita Acara</div>
-          <div class="num" id="sum-ba">0</div>
         </div>
       </div>
     </div>
@@ -494,7 +456,7 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v6";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v7";
 
     const appData = {
       sheet: "TEMUAN",
@@ -718,11 +680,6 @@
       document.getElementById("pill-selesai").textContent = tSelesai;
       document.getElementById("pill-tunda").textContent = tTunda;
 
-      document.getElementById("sum-temuan").textContent = tTotal;
-      document.getElementById("sum-selesai").textContent = tSelesai;
-      document.getElementById("sum-tunda").textContent = tTunda;
-      document.getElementById("sum-ba").textContent = bTotal;
-
       document.getElementById("sourceLabel").textContent = "Sumber: " + appData.source;
       document.getElementById("updateLabel").textContent = "Update: " + appData.updated;
       updateFilterButtonsUI();
@@ -732,6 +689,7 @@
       const btnSelesai = document.getElementById("btn-filter-selesai");
       const btnTunda = document.getElementById("btn-filter-tunda");
       const btnReset = document.getElementById("btn-reset-filter");
+      const ctx = document.getElementById("activeContextInfo");
 
       btnSelesai.classList.remove("active-filter");
       btnTunda.classList.remove("active-filter");
@@ -739,9 +697,18 @@
       const isActive = appData.sheet === "TEMUAN" && appData.statusFilter !== "ALL";
       btnReset.style.display = isActive ? "inline-flex" : "none";
 
-      if (isActive) {
-        if (appData.statusFilter === "SELESAI") btnSelesai.classList.add("active-filter");
-        if (appData.statusFilter === "TUNDA") btnTunda.classList.add("active-filter");
+      if (appData.sheet === "TEMUAN") {
+        if (appData.statusFilter === "SELESAI") {
+          btnSelesai.classList.add("active-filter");
+          ctx.textContent = "Menampilkan: Sheet TEMUAN • Filter Status: SELESAI";
+        } else if (appData.statusFilter === "TUNDA") {
+          btnTunda.classList.add("active-filter");
+          ctx.textContent = "Menampilkan: Sheet TEMUAN • Filter Status: TUNDA";
+        } else {
+          ctx.textContent = "Menampilkan: Sheet TEMUAN (Semua Status)";
+        }
+      } else {
+        ctx.textContent = "Menampilkan: Sheet BERITA ACARA";
       }
     }
 
