@@ -130,3 +130,734 @@
       font-size: 13px;
       font-weight: 700;
     }
+
+    .btn-sheet.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 3px 10px rgba(11, 59, 96, 0.22);
+    }
+
+    .pill {
+      background: rgba(15, 23, 42, 0.12);
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+
+    .btn-sheet.active .pill {
+      background: rgba(255, 255, 255, 0.24);
+      color: #ffffff;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    select, input[type="text"] {
+      padding: 8px 11px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      font-size: 12.5px;
+      background: #ffffff;
+      color: var(--text);
+    }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .summary-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 10px 13px;
+      box-shadow: var(--shadow);
+      text-align: left;
+      transition: 0.15s ease;
+    }
+
+    button.summary-btn {
+      display: block;
+      width: 100%;
+      cursor: pointer;
+      border: 1px solid var(--border);
+    }
+
+    button.summary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
+    }
+
+    button.summary-btn.btn-filter-all:hover,
+    button.summary-btn.active-all {
+      border-color: var(--accent);
+      background: #f0f9ff;
+    }
+
+    button.summary-btn.btn-filter-selesai:hover,
+    button.summary-btn.active-selesai {
+      border-color: #16a34a;
+      background: #f0fdf4;
+    }
+
+    button.summary-btn.btn-filter-tunda:hover,
+    button.summary-btn.active-tunda {
+      border-color: #d97706;
+      background: #fffbeb;
+    }
+
+    .summary-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .summary-box .label {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }
+
+    .filter-chip {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      line-height: 1.2;
+    }
+
+    .chip-all {
+      background: var(--info-bg);
+      color: var(--info-text);
+    }
+
+    .chip-selesai {
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .chip-tunda {
+      background: var(--warn-bg);
+      color: var(--warn-text);
+    }
+
+    .active-all .chip-all {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .active-selesai .chip-selesai {
+      background: #16a34a;
+      color: #ffffff;
+    }
+
+    .active-tunda .chip-tunda {
+      background: #d97706;
+      color: #ffffff;
+    }
+
+    .summary-box .num {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-top: 3px;
+      line-height: 1.2;
+    }
+
+    .data-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .data-card-head {
+      padding: 13px 18px;
+      background: var(--surface-alt);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .data-card-head h2 {
+      font-size: 14.5px;
+      color: var(--primary-dark);
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: var(--primary-dark);
+      font-size: 12px;
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 13px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 10px 13px;
+      border-bottom: 1px solid #edf2f7;
+      vertical-align: top;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .badge-ok {
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .badge-wait {
+      background: var(--warn-bg);
+      color: var(--warn-text);
+    }
+
+    .empty {
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .data-card-foot {
+      padding: 11px 18px;
+      background: var(--surface-alt);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div>
+        <span class="badge-top">KPDJP • BUILDING MANAGEMENT</span>
+        <h1>Monitoring Temuan & Berita Acara</h1>
+        <p>Pilih sheet <strong>Temuan</strong> atau <strong>Berita Acara</strong> untuk melihat data</p>
+      </div>
+      <div>
+        <button class="btn-glass" onclick="loadData(true)">↻ Muat Ulang</button>
+      </div>
+    </div>
+
+    <div class="sheet-switcher">
+      <div class="two-buttons">
+        <button id="btn-sheet-temuan" class="btn-sheet active" onclick="selectSheet('TEMUAN')">
+          Temuan <span class="pill" id="count-temuan">0</span>
+        </button>
+        <button id="btn-sheet-ba" class="btn-sheet" onclick="selectSheet('BA')">
+          Berita Acara <span class="pill" id="count-ba">0</span>
+        </button>
+      </div>
+
+      <div class="filter-group">
+        <select id="gedungFilter" onchange="renderTable()">
+          <option value="">Semua Gedung</option>
+          <option value="MM">Gedung MM</option>
+          <option value="CAKTI">Gedung Cakti</option>
+          <option value="BUDDHI">Gedung Buddhi</option>
+          <option value="BHAKTI">Gedung Bhakti</option>
+          <option value="KPDJP">KPDJP</option>
+        </select>
+        <input id="searchInput" type="text" placeholder="Cari data / No BA..." oninput="renderTable()" />
+      </div>
+    </div>
+
+    <div class="summary-row">
+      <button type="button" id="card-all" class="summary-box summary-btn btn-filter-all" onclick="setStatusFilter('ALL')" title="Tampilkan semua temuan">
+        <div class="summary-top">
+          <span class="label">Total Temuan</span>
+          <span class="filter-chip chip-all" id="hint-all">Semua</span>
+        </div>
+        <div class="num" id="sum-temuan">0</div>
+      </button>
+
+      <button type="button" id="card-selesai" class="summary-box summary-btn btn-filter-selesai" onclick="setStatusFilter('SELESAI')" title="Klik untuk filter Temuan Selesai">
+        <div class="summary-top">
+          <span class="label">Temuan Selesai</span>
+          <span class="filter-chip chip-selesai" id="hint-selesai">Filter</span>
+        </div>
+        <div class="num" id="sum-selesai" style="color: var(--success-text);">0</div>
+      </button>
+
+      <button type="button" id="card-tunda" class="summary-box summary-btn btn-filter-tunda" onclick="setStatusFilter('TUNDA')" title="Klik untuk filter Temuan Tunda">
+        <div class="summary-top">
+          <span class="label">Temuan Tunda</span>
+          <span class="filter-chip chip-tunda" id="hint-tunda">Filter</span>
+        </div>
+        <div class="num" id="sum-tunda" style="color: var(--warn-text);">0</div>
+      </button>
+
+      <div class="summary-box">
+        <div class="summary-top">
+          <span class="label">Total Berita Acara</span>
+        </div>
+        <div class="num" id="sum-ba">0</div>
+      </div>
+    </div>
+
+    <div class="data-card">
+      <div class="data-card-head">
+        <h2 id="sheetHeading">Sheet: TEMUAN</h2>
+        <span id="rowInfo" style="font-size:12px; color:var(--muted);">0 baris</span>
+      </div>
+      <div class="table-wrap" id="tableArea">
+        <div class="empty">Memuat data...</div>
+      </div>
+      <div class="data-card-foot">
+        <span id="sourceLabel">Sumber: -</span>
+        <span id="updateLabel">Update: -</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SHEET_ID = "1kW3IsDOgG7uhh02mJc3DYz_d8bjDt_-nKQxvbB5A8EE";
+    const GID_TEMUAN = "0";
+    const GID_BA = "1339186549";
+    const JSON_PATH = "./data/data_temuan_ba.json";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v5";
+
+    const appData = {
+      sheet: "TEMUAN",
+      statusFilter: "ALL",
+      temuan: [],
+      beritaAcara: [],
+      source: "-",
+      updated: "-",
+      error: "",
+      loadingMsg: "Memuat data..."
+    };
+
+    function fetchWithTimeout(url, options = {}, timeoutMs = 2000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      return fetch(url, { ...options, signal: controller.signal })
+        .finally(() => clearTimeout(timer));
+    }
+
+    function saveCache() {
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          temuan: appData.temuan,
+          beritaAcara: appData.beritaAcara,
+          source: appData.source,
+          updated: appData.updated
+        }));
+      } catch (_) {}
+    }
+
+    function loadCache() {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return false;
+        const c = JSON.parse(raw);
+        if (!Array.isArray(c.temuan) || !Array.isArray(c.beritaAcara)) return false;
+        if (c.temuan.length === 0 && c.beritaAcara.length === 0) return false;
+        appData.temuan = c.temuan.map(normalizeTemuanItem);
+        appData.beritaAcara = c.beritaAcara.map(normalizeBaItem);
+        appData.source = (c.source || "Cache") + " (instan)";
+        appData.updated = c.updated || "-";
+        appData.error = "";
+        return true;
+      } catch (_) {
+        return false;
+      }
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        const next = text[i + 1];
+        if (ch === '"' && inQuotes && next === '"') {
+          cell += '"';
+          i++;
+        } else if (ch === '"') {
+          inQuotes = !inQuotes;
+        } else if (ch === "," && !inQuotes) {
+          row.push(cell.trim());
+          cell = "";
+        } else if ((ch === "\n" || ch === "\r") && !inQuotes) {
+          if (ch === "\r" && next === "\n") i++;
+          row.push(cell.trim());
+          if (row.some(v => v !== "")) rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += ch;
+        }
+      }
+      if (cell.length > 0 || row.length > 0) {
+        row.push(cell.trim());
+        if (row.some(v => v !== "")) rows.push(row);
+      }
+      return rows;
+    }
+
+    function toObjects(rows, marker) {
+      let headerIdx = 0;
+      for (let i = 0; i < Math.min(rows.length, 8); i++) {
+        if (rows[i].join("|").toUpperCase().includes(marker)) {
+          headerIdx = i;
+          break;
+        }
+      }
+      const headers = rows[headerIdx] || [];
+      const list = [];
+      for (let r = headerIdx + 1; r < rows.length; r++) {
+        const obj = {};
+        let hasVal = false;
+        headers.forEach((h, idx) => {
+          if (!h) return;
+          const v = (rows[r][idx] || "").trim();
+          if (v !== "") hasVal = true;
+          obj[h.trim().toUpperCase()] = v;
+        });
+        if (hasVal) list.push(obj);
+      }
+      return list;
+    }
+
+    function pick(obj, keys) {
+      for (const k of keys) {
+        if (obj[k] !== undefined && obj[k] !== "") return obj[k];
+      }
+      return "";
+    }
+
+    function normalizeTemuanItem(r, i) {
+      return {
+        no: r.no ?? pick(r, ["NO"]) ?? String(i + 1),
+        no_ba: r.no_ba ?? pick(r, ["NO BA (JIKA ADA)", "NO BA", "NO_BA"]),
+        divisi: r.divisi ?? pick(r, ["DIVISI"]),
+        uraian_temuan: r.uraian_temuan ?? pick(r, ["URAIAN TEMUAN"]),
+        lokasi: r.lokasi ?? pick(r, ["LOKASI"]),
+        gedung: r.gedung ?? pick(r, ["GEDUNG"]),
+        tanggal_temuan: r.tanggal_temuan ?? pick(r, ["TANGGAL TEMUAN"]),
+        jenis_temuan: r.jenis_temuan ?? pick(r, ["TEMUAN (PREVENTIVE/BA)", "TEMUAN (PREVENTIVE/BA"]),
+        tindak_lanjut: r.tindak_lanjut ?? pick(r, ["TINDAK LANJUT"]),
+        tanggal_perbaikan: r.tanggal_perbaikan ?? pick(r, ["TANGGAL PERBAIKAN"]),
+        status: r.status ?? pick(r, ["STATUS (TUNDA/SELESAI)", "STATUS"]),
+        keterangan: r.keterangan ?? pick(r, ["KETERANGAN"])
+      };
+    }
+
+    function normalizeBaItem(r) {
+      return {
+        no_berita_acara: r.no_berita_acara ?? pick(r, ["NO BERITA ACARA"]),
+        pelapor: r.pelapor ?? pick(r, ["PELAPOR"]),
+        divisi: r.divisi ?? pick(r, ["DIVISI"]),
+        uraian: r.uraian ?? pick(r, ["URAIAN"]),
+        tanggal: r.tanggal ?? pick(r, ["TANGGAL"]),
+        lokasi_lantai: r.lokasi_lantai ?? pick(r, ["LOKASI/LANTAI", "LOKASI LANTAI"]),
+        gedung: r.gedung ?? pick(r, ["GEDUNG"]),
+        status: r.status ?? pick(r, ["STATUS"]),
+        keterangan: r.keterangan ?? pick(r, ["KETERANGAN"])
+      };
+    }
+
+    async function loadFromGitHub(bust) {
+      const url = bust ? `${JSON_PATH}?t=${Date.now()}` : JSON_PATH;
+      const res = await fetchWithTimeout(url, bust ? { cache: "no-store" } : {}, 2000);
+      if (!res.ok) throw new Error("JSON belum tersedia");
+      const json = await res.json();
+      appData.temuan = Array.isArray(json.temuan) ? json.temuan.map(normalizeTemuanItem) : [];
+      appData.beritaAcara = Array.isArray(json.berita_acara) ? json.berita_acara.map(normalizeBaItem) : [];
+      appData.updated = json.updated_at_wib || json.updated_at || "-";
+      appData.source = "Vercel / GitHub JSON";
+      appData.error = "";
+      saveCache();
+    }
+
+    async function loadFromSheets() {
+      const bust = `_=${Date.now()}`;
+      const u1 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_TEMUAN}&${bust}`;
+      const u2 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_BA}&${bust}`;
+      const [r1, r2] = await Promise.all([
+        fetchWithTimeout(u1, { mode: "cors" }, 2200),
+        fetchWithTimeout(u2, { mode: "cors" }, 2200)
+      ]);
+      if (!r1.ok || !r2.ok) throw new Error("Gagal ambil CSV Google Sheets");
+
+      const [csv1, csv2] = await Promise.all([r1.text(), r2.text()]);
+      const rawT = toObjects(parseCSV(csv1), "URAIAN TEMUAN");
+      const rawB = toObjects(parseCSV(csv2), "NO BERITA ACARA");
+
+      appData.temuan = rawT.map(normalizeTemuanItem);
+      appData.beritaAcara = rawB.map(normalizeBaItem);
+      appData.updated = new Date().toLocaleString("id-ID");
+      appData.source = "Google Sheets CSV";
+      appData.error = "";
+      saveCache();
+    }
+
+    async function loadData(bust = false) {
+      const hasCached = loadCache();
+      if (hasCached) {
+        refreshSummary();
+        renderTable();
+      } else {
+        appData.loadingMsg = "Mengambil data dari GitHub JSON...";
+        renderTable();
+      }
+
+      appData.error = "";
+      try {
+        await loadFromGitHub(bust);
+      } catch (_) {
+        if (!hasCached) {
+          appData.loadingMsg = "JSON belum ada, mencoba Google Sheets...";
+          renderTable();
+        }
+        try {
+          await loadFromSheets();
+        } catch (_) {
+          if (!hasCached) {
+            appData.source = "Belum terhubung";
+            appData.error = "File <strong>./data/data_temuan_ba.json</strong> belum ditemukan di repo GitHub dan akses CSV Google Sheets tidak merespons. Pastikan workflow GitHub Actions sudah dijalankan atau file JSON sudah di-push ke GitHub.";
+          }
+        }
+      }
+
+      refreshSummary();
+      renderTable();
+    }
+
+    function refreshSummary() {
+      const tTotal = appData.temuan.length;
+      const tSelesai = appData.temuan.filter(x => String(x.status || "").toUpperCase().includes("SELESAI")).length;
+      const tTunda = Math.max(0, tTotal - tSelesai);
+      const bTotal = appData.beritaAcara.length;
+
+      document.getElementById("count-temuan").textContent = tTotal;
+      document.getElementById("count-ba").textContent = bTotal;
+
+      document.getElementById("sum-temuan").textContent = tTotal;
+      document.getElementById("sum-selesai").textContent = tSelesai;
+      document.getElementById("sum-tunda").textContent = tTunda;
+      document.getElementById("sum-ba").textContent = bTotal;
+
+      document.getElementById("sourceLabel").textContent = "Sumber: " + appData.source;
+      document.getElementById("updateLabel").textContent = "Update: " + appData.updated;
+      updateFilterButtonsUI();
+    }
+
+    function updateFilterButtonsUI() {
+      const cardAll = document.getElementById("card-all");
+      const cardSelesai = document.getElementById("card-selesai");
+      const cardTunda = document.getElementById("card-tunda");
+
+      cardAll.classList.remove("active-all");
+      cardSelesai.classList.remove("active-selesai");
+      cardTunda.classList.remove("active-tunda");
+
+      document.getElementById("hint-all").textContent = "Semua";
+      document.getElementById("hint-selesai").textContent = "Filter";
+      document.getElementById("hint-tunda").textContent = "Filter";
+
+      if (appData.sheet === "TEMUAN") {
+        if (appData.statusFilter === "SELESAI") {
+          cardSelesai.classList.add("active-selesai");
+          document.getElementById("hint-selesai").textContent = "Aktif ✓";
+        } else if (appData.statusFilter === "TUNDA") {
+          cardTunda.classList.add("active-tunda");
+          document.getElementById("hint-tunda").textContent = "Aktif ✓";
+        } else {
+          cardAll.classList.add("active-all");
+          document.getElementById("hint-all").textContent = "Aktif ✓";
+        }
+      }
+    }
+
+    function setStatusFilter(status) {
+      if (appData.sheet === "TEMUAN" && appData.statusFilter === status && status !== "ALL") {
+        appData.statusFilter = "ALL";
+      } else {
+        appData.statusFilter = status;
+      }
+
+      if (appData.sheet !== "TEMUAN") {
+        appData.sheet = "TEMUAN";
+        document.getElementById("btn-sheet-temuan").classList.add("active");
+        document.getElementById("btn-sheet-ba").classList.remove("active");
+      }
+
+      updateFilterButtonsUI();
+      renderTable();
+    }
+
+    function selectSheet(sheetName) {
+      appData.sheet = sheetName;
+      document.getElementById("btn-sheet-temuan").classList.toggle("active", sheetName === "TEMUAN");
+      document.getElementById("btn-sheet-ba").classList.toggle("active", sheetName === "BA");
+      updateFilterButtonsUI();
+      renderTable();
+    }
+
+    function badge(val) {
+      const s = String(val || "").trim();
+      if (!s || s === "-") return `<span class="badge badge-wait">${s || "BELUM DIISI"}</span>`;
+      if (s.toUpperCase().includes("SELESAI")) return `<span class="badge badge-ok">${s}</span>`;
+      return `<span class="badge badge-wait">${s}</span>`;
+    }
+
+    function passFilter(item, isTemuan = false) {
+      if (isTemuan && appData.statusFilter !== "ALL") {
+        const isSelesai = String(item.status || "").toUpperCase().includes("SELESAI");
+        if (appData.statusFilter === "SELESAI" && !isSelesai) return false;
+        if (appData.statusFilter === "TUNDA" && isSelesai) return false;
+      }
+
+      const gedung = document.getElementById("gedungFilter").value.trim().toUpperCase();
+      const q = document.getElementById("searchInput").value.trim().toLowerCase();
+      if (gedung && !String(item.gedung || "").toUpperCase().includes(gedung)) return false;
+      if (q && !JSON.stringify(item).toLowerCase().includes(q)) return false;
+      return true;
+    }
+
+    function renderTable() {
+      const area = document.getElementById("tableArea");
+      const heading = document.getElementById("sheetHeading");
+      const rowInfo = document.getElementById("rowInfo");
+
+      if (appData.sheet === "TEMUAN") {
+        const labelFilter = appData.statusFilter === "ALL" ? "" : ` (${appData.statusFilter})`;
+        heading.textContent = `Sheet: TEMUAN${labelFilter}`;
+        const rows = appData.temuan.filter(item => passFilter(item, true));
+        rowInfo.textContent = `${rows.length} baris`;
+
+        if (!rows.length) {
+          const msg = appData.error || (appData.temuan.length === 0 ? appData.loadingMsg : "Belum ada data pada sheet TEMUAN untuk filter ini.");
+          area.innerHTML = `<div class="empty">${msg}</div>`;
+          return;
+        }
+
+        area.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>No BA</th>
+                <th>Divisi</th>
+                <th>Uraian Temuan</th>
+                <th>Lokasi</th>
+                <th>Gedung</th>
+                <th>Tgl Temuan</th>
+                <th>Temuan (Preventive/BA)</th>
+                <th>Tindak Lanjut</th>
+                <th>Tgl Perbaikan</th>
+                <th>Status</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td>${r.no || "-"}</td>
+                  <td><strong>${r.no_ba || "-"}</strong></td>
+                  <td><strong>${r.divisi || "-"}</strong></td>
+                  <td>${r.uraian_temuan || "-"}</td>
+                  <td>${r.lokasi || "-"}</td>
+                  <td>${r.gedung || "-"}</td>
+                  <td>${r.tanggal_temuan || "-"}</td>
+                  <td>${r.jenis_temuan || "-"}</td>
+                  <td>${r.tindak_lanjut || "-"}</td>
+                  <td>${r.tanggal_perbaikan || "-"}</td>
+                  <td>${badge(r.status)}</td>
+                  <td>${r.keterangan || "-"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      } else {
+        heading.textContent = "Sheet: BERITA ACARA";
+        const rows = appData.beritaAcara.filter(item => passFilter(item, false));
+        rowInfo.textContent = `${rows.length} baris`;
+
+        if (!rows.length) {
+          const msg = appData.error || (appData.beritaAcara.length === 0 ? appData.loadingMsg : "Belum ada data pada sheet BERITA ACARA.");
+          area.innerHTML = `<div class="empty">${msg}</div>`;
+          return;
+        }
+
+        area.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>No Berita Acara</th>
+                <th>Pelapor</th>
+                <th>Divisi</th>
+                <th>Uraian</th>
+                <th>Tanggal</th>
+                <th>Lokasi/Lantai</th>
+                <th>Gedung</th>
+                <th>Status</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td><strong>${r.no_berita_acara || "-"}</strong></td>
+                  <td>${r.pelapor || "-"}</td>
+                  <td>${r.divisi || "-"}</td>
+                  <td>${r.uraian || "-"}</td>
+                  <td>${r.tanggal || "-"}</td>
+                  <td>${r.lokasi_lantai || "-"}</td>
+                  <td>${r.gedung || "-"}</td>
+                  <td>${badge(r.status)}</td>
+                  <td>${r.keterangan || "-"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      }
+    }
+
+    loadData(false);
+  </script>
+</body>
+</html>
