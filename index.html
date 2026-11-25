@@ -716,10 +716,9 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v15";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v16";
 
-    // Ganti dengan URL Web App Apps Script (/exec) asli Anda:
-    const GS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_GANTI_DENGAN_URL_ANDA/exec";
+    const GS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxML3ontN7yvh3euJBbczVxXPufp35FnXMTlFSAG1_cb-6fpo8gZMV-KdNm7Ev5ypCtlg/exec";
 
     const appData = {
       sheet: "TEMUAN",
@@ -1073,10 +1072,6 @@
           tanggal_perbaikan: tglPerbaikan,
           keterangan
         };
-      }
-
-      if (!GS_WEB_APP_URL || GS_WEB_APP_URL.includes("GANTI_DENGAN_URL_ANDA")) {
-        return showFormError("URL Web App Apps Script belum diisi pada GS_WEB_APP_URL.");
       }
 
       btn.disabled = true;
