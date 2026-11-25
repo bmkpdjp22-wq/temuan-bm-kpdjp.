@@ -19,6 +19,8 @@
       --success-text: #15803d;
       --warn-bg: #fef3c7;
       --warn-text: #b45309;
+      --info-bg: #e0f2fe;
+      --info-text: #0369a1;
       --shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
     }
 
@@ -45,49 +47,43 @@
       background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--accent) 100%);
       color: #ffffff;
       border-radius: 14px;
-      padding: 22px 26px;
+      padding: 20px 24px;
       box-shadow: var(--shadow);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 14px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .badge-top {
       display: inline-block;
       background: rgba(255, 255, 255, 0.16);
       border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 4px 10px;
+      padding: 3px 10px;
       border-radius: 999px;
       font-size: 11px;
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .topbar h1 {
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 700;
     }
 
     .topbar p {
       font-size: 13px;
       color: rgba(255, 255, 255, 0.88);
-      margin-top: 4px;
-    }
-
-    .topbar-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      margin-top: 3px;
     }
 
     button {
       border: none;
-      border-radius: 10px;
-      padding: 10px 15px;
-      font-size: 13px;
+      border-radius: 9px;
+      padding: 8px 13px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -106,14 +102,13 @@
       background: rgba(255, 255, 255, 0.26);
     }
 
-    /* 2 Tombol Utama Sheet: Temuan & Berita Acara */
     .sheet-switcher {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 18px;
+      border-radius: 12px;
+      padding: 12px 16px;
       box-shadow: var(--shadow);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -124,29 +119,29 @@
     .two-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
 
     .btn-sheet {
       background: #e2e8f0;
       color: var(--text);
-      padding: 11px 18px;
-      border-radius: 10px;
-      font-size: 14px;
+      padding: 9px 15px;
+      border-radius: 9px;
+      font-size: 13px;
       font-weight: 700;
     }
 
     .btn-sheet.active {
       background: var(--primary);
       color: #ffffff;
-      box-shadow: 0 3px 10px rgba(11, 59, 96, 0.25);
+      box-shadow: 0 3px 10px rgba(11, 59, 96, 0.22);
     }
 
     .pill {
       background: rgba(15, 23, 42, 0.12);
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .btn-sheet.active .pill {
@@ -161,82 +156,121 @@
     }
 
     select, input[type="text"] {
-      padding: 9px 12px;
+      padding: 8px 11px;
       border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 13px;
+      border-radius: 9px;
+      font-size: 12.5px;
       background: #ffffff;
       color: var(--text);
     }
 
+    /* Ringkasan Lebih Ringkas */
     .summary-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
     }
 
     .summary-box {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
+      border-radius: 11px;
+      padding: 10px 13px;
       box-shadow: var(--shadow);
       text-align: left;
       transition: 0.15s ease;
     }
 
-    /* Gaya Tombol Filter pada Summary Box */
     button.summary-btn {
       display: block;
       width: 100%;
       cursor: pointer;
-      border: 1.5px solid var(--border);
+      border: 1px solid var(--border);
     }
 
     button.summary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
+    }
+
+    button.summary-btn.btn-filter-all:hover,
+    button.summary-btn.active-all {
       border-color: var(--accent);
-      transform: translateY(-2px);
+      background: #f0f9ff;
     }
 
-    button.summary-btn.active-filter {
-      border-color: var(--primary);
-      background: #f0f7ff;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.16);
-    }
-
+    button.summary-btn.btn-filter-selesai:hover,
     button.summary-btn.active-selesai {
-      border-color: var(--success-text);
+      border-color: #16a34a;
       background: #f0fdf4;
     }
 
+    button.summary-btn.btn-filter-tunda:hover,
     button.summary-btn.active-tunda {
-      border-color: var(--warn-text);
+      border-color: #d97706;
       background: #fffbeb;
     }
 
-    .summary-box .label {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
+    .summary-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 6px;
     }
 
-    .filter-hint {
+    .summary-box .label {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.2px;
+    }
+
+    .filter-chip {
       font-size: 10px;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: none;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      line-height: 1.2;
+    }
+
+    .chip-all {
+      background: var(--info-bg);
+      color: var(--info-text);
+    }
+
+    .chip-selesai {
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .chip-tunda {
+      background: var(--warn-bg);
+      color: var(--warn-text);
+    }
+
+    .active-all .chip-all {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .active-selesai .chip-selesai {
+      background: #16a34a;
+      color: #ffffff;
+    }
+
+    .active-tunda .chip-tunda {
+      background: #d97706;
+      color: #ffffff;
     }
 
     .summary-box .num {
-      font-size: 22px;
+      font-size: 19px;
       font-weight: 800;
       color: var(--primary-dark);
-      margin-top: 4px;
+      margin-top: 3px;
+      line-height: 1.2;
     }
 
     .data-card {
@@ -248,7 +282,7 @@
     }
 
     .data-card-head {
-      padding: 14px 20px;
+      padding: 13px 18px;
       background: var(--surface-alt);
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -259,7 +293,7 @@
     }
 
     .data-card-head h2 {
-      font-size: 15px;
+      font-size: 14.5px;
       color: var(--primary-dark);
     }
 
@@ -280,13 +314,13 @@
       font-size: 12px;
       font-weight: 700;
       text-align: left;
-      padding: 11px 14px;
+      padding: 10px 13px;
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
 
     td {
-      padding: 11px 14px;
+      padding: 10px 13px;
       border-bottom: 1px solid #edf2f7;
       vertical-align: top;
     }
@@ -310,13 +344,13 @@
     }
 
     .empty {
-      padding: 36px 20px;
+      padding: 32px 20px;
       text-align: center;
       color: var(--muted);
     }
 
     .data-card-foot {
-      padding: 12px 20px;
+      padding: 11px 18px;
       background: var(--surface-alt);
       border-top: 1px solid var(--border);
       display: flex;
@@ -336,12 +370,11 @@
         <h1>Monitoring Temuan & Berita Acara</h1>
         <p>Pilih sheet <strong>Temuan</strong> atau <strong>Berita Acara</strong> untuk melihat data</p>
       </div>
-      <div class="topbar-actions">
+      <div>
         <button class="btn-glass" onclick="loadData(true)">↻ Muat Ulang</button>
       </div>
     </div>
 
-    <!-- 2 TOMBOL SHEET: TEMUAN & BERITA ACARA -->
     <div class="sheet-switcher">
       <div class="two-buttons">
         <button id="btn-sheet-temuan" class="btn-sheet active" onclick="selectSheet('TEMUAN')">
@@ -365,32 +398,34 @@
     </div>
 
     <div class="summary-row">
-      <button type="button" id="card-all" class="summary-box summary-btn" onclick="setStatusFilter('ALL')" title="Tampilkan semua temuan">
-        <div class="label">
-          <span>Total Sheet Temuan</span>
-          <span class="filter-hint" id="hint-all">Semua</span>
+      <button type="button" id="card-all" class="summary-box summary-btn btn-filter-all" onclick="setStatusFilter('ALL')" title="Tampilkan semua temuan">
+        <div class="summary-top">
+          <span class="label">Total Temuan</span>
+          <span class="filter-chip chip-all" id="hint-all">Semua</span>
         </div>
         <div class="num" id="sum-temuan">0</div>
       </button>
 
-      <button type="button" id="card-selesai" class="summary-box summary-btn" onclick="setStatusFilter('SELESAI')" title="Klik untuk filter Temuan Selesai">
-        <div class="label">
-          <span>Temuan Selesai</span>
-          <span class="filter-hint" id="hint-selesai">Filter</span>
+      <button type="button" id="card-selesai" class="summary-box summary-btn btn-filter-selesai" onclick="setStatusFilter('SELESAI')" title="Klik untuk filter Temuan Selesai">
+        <div class="summary-top">
+          <span class="label">Temuan Selesai</span>
+          <span class="filter-chip chip-selesai" id="hint-selesai">Filter</span>
         </div>
         <div class="num" id="sum-selesai" style="color: var(--success-text);">0</div>
       </button>
 
-      <button type="button" id="card-tunda" class="summary-box summary-btn" onclick="setStatusFilter('TUNDA')" title="Klik untuk filter Temuan Tunda">
-        <div class="label">
-          <span>Temuan Tunda</span>
-          <span class="filter-hint" id="hint-tunda">Filter</span>
+      <button type="button" id="card-tunda" class="summary-box summary-btn btn-filter-tunda" onclick="setStatusFilter('TUNDA')" title="Klik untuk filter Temuan Tunda">
+        <div class="summary-top">
+          <span class="label">Temuan Tunda</span>
+          <span class="filter-chip chip-tunda" id="hint-tunda">Filter</span>
         </div>
         <div class="num" id="sum-tunda" style="color: var(--warn-text);">0</div>
       </button>
 
       <div class="summary-box">
-        <div class="label">Total Sheet Berita Acara</div>
+        <div class="summary-top">
+          <span class="label">Total Berita Acara</span>
+        </div>
         <div class="num" id="sum-ba">0</div>
       </div>
     </div>
@@ -415,16 +450,52 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v1";
 
     const appData = {
       sheet: "TEMUAN",
-      statusFilter: "ALL", // "ALL" | "SELESAI" | "TUNDA"
+      statusFilter: "ALL",
       temuan: [],
       beritaAcara: [],
       source: "-",
       updated: "-",
       error: ""
     };
+
+    function fetchWithTimeout(url, options = {}, timeoutMs = 4000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      return fetch(url, { ...options, signal: controller.signal })
+        .finally(() => clearTimeout(timer));
+    }
+
+    function saveCache() {
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          temuan: appData.temuan,
+          beritaAcara: appData.beritaAcara,
+          source: appData.source,
+          updated: appData.updated
+        }));
+      } catch (_) {}
+    }
+
+    function loadCache() {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return false;
+        const c = JSON.parse(raw);
+        if (!Array.isArray(c.temuan) || !Array.isArray(c.beritaAcara)) return false;
+        appData.temuan = c.temuan;
+        appData.beritaAcara = c.beritaAcara;
+        appData.source = (c.source || "Cache") + " (tersimpan)";
+        appData.updated = c.updated || "-";
+        appData.error = "";
+        return true;
+      } catch (_) {
+        return false;
+      }
+    }
 
     function parseCSV(text) {
       const rows = [];
@@ -486,7 +557,7 @@
 
     async function loadFromGitHub(bust) {
       const url = bust ? `${JSON_PATH}?t=${Date.now()}` : JSON_PATH;
-      const res = await fetch(url, { cache: "no-store" });
+      const res = await fetchWithTimeout(url, { cache: "no-store" }, 3500);
       if (!res.ok) throw new Error("JSON belum ada di GitHub");
       const json = await res.json();
       appData.temuan = Array.isArray(json.temuan) ? json.temuan : [];
@@ -494,10 +565,266 @@
       appData.updated = json.updated_at_wib || json.updated_at || "-";
       appData.source = "GitHub (data/data_temuan_ba.json)";
       appData.error = "";
+      saveCache();
     }
 
     async function loadFromSheets() {
-      const u1 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_TEMUAN}`;
-      const u2 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_BA}`;
-      const [r1, r2] = await Promise.all([fetch(u1), fetch(u2)]);
+      const bust = `_=${Date.now()}`;
+      const u1 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_TEMUAN}&${bust}`;
+      const u2 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_BA}&${bust}`;
+      const [r1, r2] = await Promise.all([
+        fetchWithTimeout(u1, {}, 4500),
+        fetchWithTimeout(u2, {}, 4500)
+      ]);
       if (!r1.ok || !r2.ok) throw new Error("Gagal ambil CSV Google Sheets");
+
+      const [csv1, csv2] = await Promise.all([r1.text(), r2.text()]);
+      const rawT = toObjects(parseCSV(csv1), "URAIAN TEMUAN");
+      const rawB = toObjects(parseCSV(csv2), "NO BERITA ACARA");
+
+      appData.temuan = rawT.map((r, i) => ({
+        no: r["NO"] || String(i + 1),
+        divisi: r["DIVISI"] || "",
+        uraian_temuan: r["URAIAN TEMUAN"] || "",
+        lokasi: r["LOKASI"] || "",
+        gedung: r["GEDUNG"] || "",
+        tanggal_temuan: r["TANGGAL TEMUAN"] || "",
+        jenis_temuan: r["TEMUAN (PREVENTIVE/BA"] || "",
+        tindak_lanjut: r["TINDAK LANJUT"] || "",
+        tanggal_perbaikan: r["TANGGAL PERBAIKAN"] || "",
+        status: r["STATUS (TUNDA/SELESAI)"] || "",
+        keterangan: r["KETERANGAN"] || ""
+      }));
+
+      appData.beritaAcara = rawB.map(r => ({
+        no_berita_acara: r["NO BERITA ACARA"] || "",
+        pelapor: r["PELAPOR"] || "",
+        divisi: r["DIVISI"] || "",
+        uraian: r["URAIAN"] || "",
+        tanggal: r["TANGGAL"] || "",
+        lokasi_lantai: r["LOKASI/LANTAI"] || "",
+        gedung: r["GEDUNG"] || "",
+        keterangan: r["KETERANGAN"] || ""
+      }));
+
+      appData.updated = new Date().toLocaleString("id-ID");
+      appData.source = "Google Sheets";
+      appData.error = "";
+      saveCache();
+    }
+
+    async function loadData(bust = false) {
+      const hasCached = loadCache();
+      if (hasCached) {
+        refreshSummary();
+        renderTable();
+      }
+
+      appData.error = "";
+      try {
+        await loadFromGitHub(bust);
+      } catch (_) {
+        try {
+          await loadFromSheets();
+        } catch (_) {
+          if (!hasCached) {
+            appData.source = "Belum terhubung";
+            appData.error = "Data belum tersedia di GitHub / Google Sheets masih privat.";
+          }
+        }
+      }
+      refreshSummary();
+      renderTable();
+    }
+
+    function refreshSummary() {
+      const tTotal = appData.temuan.length;
+      const tSelesai = appData.temuan.filter(x => String(x.status || "").toUpperCase().includes("SELESAI")).length;
+      const tTunda = Math.max(0, tTotal - tSelesai);
+      const bTotal = appData.beritaAcara.length;
+
+      document.getElementById("count-temuan").textContent = tTotal;
+      document.getElementById("count-ba").textContent = bTotal;
+
+      document.getElementById("sum-temuan").textContent = tTotal;
+      document.getElementById("sum-selesai").textContent = tSelesai;
+      document.getElementById("sum-tunda").textContent = tTunda;
+      document.getElementById("sum-ba").textContent = bTotal;
+
+      document.getElementById("sourceLabel").textContent = "Sumber: " + appData.source;
+      document.getElementById("updateLabel").textContent = "Update: " + appData.updated;
+      updateFilterButtonsUI();
+    }
+
+    function updateFilterButtonsUI() {
+      const cardAll = document.getElementById("card-all");
+      const cardSelesai = document.getElementById("card-selesai");
+      const cardTunda = document.getElementById("card-tunda");
+
+      cardAll.classList.remove("active-all");
+      cardSelesai.classList.remove("active-selesai");
+      cardTunda.classList.remove("active-tunda");
+
+      document.getElementById("hint-all").textContent = "Semua";
+      document.getElementById("hint-selesai").textContent = "Filter";
+      document.getElementById("hint-tunda").textContent = "Filter";
+
+      if (appData.sheet === "TEMUAN") {
+        if (appData.statusFilter === "SELESAI") {
+          cardSelesai.classList.add("active-selesai");
+          document.getElementById("hint-selesai").textContent = "Aktif ✓";
+        } else if (appData.statusFilter === "TUNDA") {
+          cardTunda.classList.add("active-tunda");
+          document.getElementById("hint-tunda").textContent = "Aktif ✓";
+        } else {
+          cardAll.classList.add("active-all");
+          document.getElementById("hint-all").textContent = "Aktif ✓";
+        }
+      }
+    }
+
+    function setStatusFilter(status) {
+      if (appData.sheet === "TEMUAN" && appData.statusFilter === status && status !== "ALL") {
+        appData.statusFilter = "ALL";
+      } else {
+        appData.statusFilter = status;
+      }
+
+      if (appData.sheet !== "TEMUAN") {
+        appData.sheet = "TEMUAN";
+        document.getElementById("btn-sheet-temuan").classList.add("active");
+        document.getElementById("btn-sheet-ba").classList.remove("active");
+      }
+
+      updateFilterButtonsUI();
+      renderTable();
+    }
+
+    function selectSheet(sheetName) {
+      appData.sheet = sheetName;
+      document.getElementById("btn-sheet-temuan").classList.toggle("active", sheetName === "TEMUAN");
+      document.getElementById("btn-sheet-ba").classList.toggle("active", sheetName === "BA");
+      updateFilterButtonsUI();
+      renderTable();
+    }
+
+    function badge(val) {
+      const s = String(val || "").trim();
+      if (!s) return `<span class="badge badge-wait">BELUM DIISI</span>`;
+      if (s.toUpperCase().includes("SELESAI")) return `<span class="badge badge-ok">${s}</span>`;
+      return `<span class="badge badge-wait">${s}</span>`;
+    }
+
+    function passFilter(item, isTemuan = false) {
+      if (isTemuan && appData.statusFilter !== "ALL") {
+        const isSelesai = String(item.status || "").toUpperCase().includes("SELESAI");
+        if (appData.statusFilter === "SELESAI" && !isSelesai) return false;
+        if (appData.statusFilter === "TUNDA" && isSelesai) return false;
+      }
+
+      const gedung = document.getElementById("gedungFilter").value.trim().toUpperCase();
+      const q = document.getElementById("searchInput").value.trim().toLowerCase();
+      if (gedung && !String(item.gedung || "").toUpperCase().includes(gedung)) return false;
+      if (q && !JSON.stringify(item).toLowerCase().includes(q)) return false;
+      return true;
+    }
+
+    function renderTable() {
+      const area = document.getElementById("tableArea");
+      const heading = document.getElementById("sheetHeading");
+      const rowInfo = document.getElementById("rowInfo");
+
+      if (appData.sheet === "TEMUAN") {
+        const labelFilter = appData.statusFilter === "ALL" ? "" : ` (${appData.statusFilter})`;
+        heading.textContent = `Sheet: TEMUAN${labelFilter}`;
+        const rows = appData.temuan.filter(item => passFilter(item, true));
+        rowInfo.textContent = `${rows.length} baris`;
+
+        if (!rows.length) {
+          area.innerHTML = `<div class="empty">${appData.error || "Belum ada data pada sheet TEMUAN untuk filter ini."}</div>`;
+          return;
+        }
+
+        area.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Divisi</th>
+                <th>Uraian Temuan</th>
+                <th>Lokasi</th>
+                <th>Gedung</th>
+                <th>Tgl Temuan</th>
+                <th>Temuan (Preventive/BA)</th>
+                <th>Tindak Lanjut</th>
+                <th>Tgl Perbaikan</th>
+                <th>Status</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td>${r.no || "-"}</td>
+                  <td><strong>${r.divisi || "-"}</strong></td>
+                  <td>${r.uraian_temuan || "-"}</td>
+                  <td>${r.lokasi || "-"}</td>
+                  <td>${r.gedung || "-"}</td>
+                  <td>${r.tanggal_temuan || "-"}</td>
+                  <td>${r.jenis_temuan || "-"}</td>
+                  <td>${r.tindak_lanjut || "-"}</td>
+                  <td>${r.tanggal_perbaikan || "-"}</td>
+                  <td>${badge(r.status)}</td>
+                  <td>${r.keterangan || "-"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      } else {
+        heading.textContent = "Sheet: BERITA ACARA";
+        const rows = appData.beritaAcara.filter(item => passFilter(item, false));
+        rowInfo.textContent = `${rows.length} baris`;
+
+        if (!rows.length) {
+          area.innerHTML = `<div class="empty">${appData.error || "Belum ada data pada sheet BERITA ACARA."}</div>`;
+          return;
+        }
+
+        area.innerHTML = `
+          <table>
+            <thead>
+              <tr>
+                <th>No Berita Acara</th>
+                <th>Pelapor</th>
+                <th>Divisi</th>
+                <th>Uraian</th>
+                <th>Tanggal</th>
+                <th>Lokasi/Lantai</th>
+                <th>Gedung</th>
+                <th>Keterangan</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td><strong>${r.no_berita_acara || "-"}</strong></td>
+                  <td>${r.pelapor || "-"}</td>
+                  <td>${r.divisi || "-"}</td>
+                  <td>${r.uraian || "-"}</td>
+                  <td>${r.tanggal || "-"}</td>
+                  <td>${r.lokasi_lantai || "-"}</td>
+                  <td>${r.gedung || "-"}</td>
+                  <td>${r.keterangan || "-"}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        `;
+      }
+    }
+
+    loadData(false);
+  </script>
+</body>
+</html>
