@@ -43,7 +43,6 @@
       margin: 0 auto;
     }
 
-    /* Bagian atas tetap di tempat saat scroll */
     .sticky-top {
       position: sticky;
       top: 0;
@@ -126,12 +125,20 @@
       gap: 12px;
     }
 
+    .nav-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
     .two-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
 
+    /* Konsep 1: Tombol Sheet Utama (Solid) */
     .btn-sheet {
       background: #e2e8f0;
       color: var(--text);
@@ -157,6 +164,82 @@
     .btn-sheet.active .pill {
       background: rgba(255, 255, 255, 0.24);
       color: #ffffff;
+    }
+
+    .divider-v {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+    }
+
+    /* Konsep 2: Tombol Filter Status (Dashed/Outlined + Ikon) */
+    .status-filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-status-filter {
+      background: var(--surface-alt);
+      border: 1px dashed #94a3b8;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .btn-status-filter .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .btn-filter-selesai .dot {
+      background: #16a34a;
+    }
+
+    .btn-filter-tunda .dot {
+      background: #d97706;
+    }
+
+    .btn-filter-selesai:hover,
+    .btn-filter-selesai.active-filter {
+      border-style: solid;
+      border-color: #16a34a;
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .btn-filter-tunda:hover,
+    .btn-filter-tunda.active-filter {
+      border-style: solid;
+      border-color: #d97706;
+      background: var(--warn-bg);
+      color: var(--warn-text);
+    }
+
+    .filter-count {
+      background: rgba(15, 23, 42, 0.08);
+      padding: 1px 6px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+
+    .active-filter .filter-count {
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .btn-reset-filter {
+      background: var(--info-bg);
+      color: var(--info-text);
+      border: 1px solid #bae6fd;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 700;
     }
 
     .filter-group {
@@ -188,44 +271,6 @@
       padding: 10px 13px;
       box-shadow: var(--shadow);
       text-align: left;
-      transition: 0.15s ease;
-    }
-
-    button.summary-btn {
-      display: block;
-      width: 100%;
-      cursor: pointer;
-      border: 1px solid var(--border);
-    }
-
-    button.summary-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
-    }
-
-    button.summary-btn.btn-filter-all:hover,
-    button.summary-btn.active-all {
-      border-color: var(--accent);
-      background: #f0f9ff;
-    }
-
-    button.summary-btn.btn-filter-selesai:hover,
-    button.summary-btn.active-selesai {
-      border-color: #16a34a;
-      background: #f0fdf4;
-    }
-
-    button.summary-btn.btn-filter-tunda:hover,
-    button.summary-btn.active-tunda {
-      border-color: #d97706;
-      background: #fffbeb;
-    }
-
-    .summary-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
     }
 
     .summary-box .label {
@@ -234,44 +279,6 @@
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.2px;
-    }
-
-    .filter-chip {
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 999px;
-      line-height: 1.2;
-    }
-
-    .chip-all {
-      background: var(--info-bg);
-      color: var(--info-text);
-    }
-
-    .chip-selesai {
-      background: var(--success-bg);
-      color: var(--success-text);
-    }
-
-    .chip-tunda {
-      background: var(--warn-bg);
-      color: var(--warn-text);
-    }
-
-    .active-all .chip-all {
-      background: var(--accent);
-      color: #ffffff;
-    }
-
-    .active-selesai .chip-selesai {
-      background: #16a34a;
-      color: #ffffff;
-    }
-
-    .active-tunda .chip-tunda {
-      background: #d97706;
-      color: #ffffff;
     }
 
     .summary-box .num {
@@ -307,10 +314,9 @@
       color: var(--primary-dark);
     }
 
-    /* Hanya area tabel yang di-scroll */
     .table-wrap {
       width: 100%;
-      max-height: calc(100vh - 375px);
+      max-height: calc(100vh - 365px);
       min-height: 240px;
       overflow: auto;
     }
@@ -380,6 +386,9 @@
     }
 
     @media (max-width: 768px) {
+      .divider-v {
+        display: none;
+      }
       .table-wrap {
         max-height: 55vh;
       }
@@ -401,13 +410,35 @@
       </div>
 
       <div class="sheet-switcher">
-        <div class="two-buttons">
-          <button id="btn-sheet-temuan" class="btn-sheet active" onclick="selectSheet('TEMUAN')">
-            Temuan <span class="pill" id="count-temuan">0</span>
-          </button>
-          <button id="btn-sheet-ba" class="btn-sheet" onclick="selectSheet('BA')">
-            Berita Acara <span class="pill" id="count-ba">0</span>
-          </button>
+        <div class="nav-controls">
+          <div class="two-buttons">
+            <button id="btn-sheet-temuan" class="btn-sheet active" onclick="selectSheet('TEMUAN')">
+              Temuan <span class="pill" id="count-temuan">0</span>
+            </button>
+            <button id="btn-sheet-ba" class="btn-sheet" onclick="selectSheet('BA')">
+              Berita Acara <span class="pill" id="count-ba">0</span>
+            </button>
+          </div>
+
+          <div class="divider-v"></div>
+
+          <div class="status-filter-buttons" aria-label="Filter status temuan">
+            <button type="button" id="btn-filter-selesai" class="btn-status-filter btn-filter-selesai" onclick="setStatusFilter('SELESAI')" title="Filter data Selesai">
+              <span class="dot"></span>
+              <span>Selesai</span>
+              <span class="filter-count" id="pill-selesai">0</span>
+            </button>
+
+            <button type="button" id="btn-filter-tunda" class="btn-status-filter btn-filter-tunda" onclick="setStatusFilter('TUNDA')" title="Filter data Tunda">
+              <span class="dot"></span>
+              <span>Tunda</span>
+              <span class="filter-count" id="pill-tunda">0</span>
+            </button>
+
+            <button type="button" id="btn-reset-filter" class="btn-reset-filter" style="display:none;" onclick="setStatusFilter('ALL')" title="Hapus filter status">
+              ✕ Reset Filter
+            </button>
+          </div>
         </div>
 
         <div class="filter-group">
@@ -424,34 +455,20 @@
       </div>
 
       <div class="summary-row">
-        <button type="button" id="card-all" class="summary-box summary-btn btn-filter-all" onclick="setStatusFilter('ALL')" title="Tampilkan semua temuan">
-          <div class="summary-top">
-            <span class="label">Total Temuan</span>
-            <span class="filter-chip chip-all" id="hint-all">Semua</span>
-          </div>
-          <div class="num" id="sum-temuan">0</div>
-        </button>
-
-        <button type="button" id="card-selesai" class="summary-box summary-btn btn-filter-selesai" onclick="setStatusFilter('SELESAI')" title="Klik untuk filter Temuan Selesai">
-          <div class="summary-top">
-            <span class="label">Temuan Selesai</span>
-            <span class="filter-chip chip-selesai" id="hint-selesai">Filter</span>
-          </div>
-          <div class="num" id="sum-selesai" style="color: var(--success-text);">0</div>
-        </button>
-
-        <button type="button" id="card-tunda" class="summary-box summary-btn btn-filter-tunda" onclick="setStatusFilter('TUNDA')" title="Klik untuk filter Temuan Tunda">
-          <div class="summary-top">
-            <span class="label">Temuan Tunda</span>
-            <span class="filter-chip chip-tunda" id="hint-tunda">Filter</span>
-          </div>
-          <div class="num" id="sum-tunda" style="color: var(--warn-text);">0</div>
-        </button>
-
         <div class="summary-box">
-          <div class="summary-top">
-            <span class="label">Total Berita Acara</span>
-          </div>
+          <div class="label">Total Sheet Temuan</div>
+          <div class="num" id="sum-temuan">0</div>
+        </div>
+        <div class="summary-box">
+          <div class="label">Temuan Selesai</div>
+          <div class="num" id="sum-selesai" style="color: var(--success-text);">0</div>
+        </div>
+        <div class="summary-box">
+          <div class="label">Temuan Tunda</div>
+          <div class="num" id="sum-tunda" style="color: var(--warn-text);">0</div>
+        </div>
+        <div class="summary-box">
+          <div class="label">Total Sheet Berita Acara</div>
           <div class="num" id="sum-ba">0</div>
         </div>
       </div>
@@ -477,7 +494,7 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v5";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v6";
 
     const appData = {
       sheet: "TEMUAN",
@@ -698,6 +715,9 @@
       document.getElementById("count-temuan").textContent = tTotal;
       document.getElementById("count-ba").textContent = bTotal;
 
+      document.getElementById("pill-selesai").textContent = tSelesai;
+      document.getElementById("pill-tunda").textContent = tTunda;
+
       document.getElementById("sum-temuan").textContent = tTotal;
       document.getElementById("sum-selesai").textContent = tSelesai;
       document.getElementById("sum-tunda").textContent = tTunda;
@@ -709,34 +729,26 @@
     }
 
     function updateFilterButtonsUI() {
-      const cardAll = document.getElementById("card-all");
-      const cardSelesai = document.getElementById("card-selesai");
-      const cardTunda = document.getElementById("card-tunda");
+      const btnSelesai = document.getElementById("btn-filter-selesai");
+      const btnTunda = document.getElementById("btn-filter-tunda");
+      const btnReset = document.getElementById("btn-reset-filter");
 
-      cardAll.classList.remove("active-all");
-      cardSelesai.classList.remove("active-selesai");
-      cardTunda.classList.remove("active-tunda");
+      btnSelesai.classList.remove("active-filter");
+      btnTunda.classList.remove("active-filter");
 
-      document.getElementById("hint-all").textContent = "Semua";
-      document.getElementById("hint-selesai").textContent = "Filter";
-      document.getElementById("hint-tunda").textContent = "Filter";
+      const isActive = appData.sheet === "TEMUAN" && appData.statusFilter !== "ALL";
+      btnReset.style.display = isActive ? "inline-flex" : "none";
 
-      if (appData.sheet === "TEMUAN") {
-        if (appData.statusFilter === "SELESAI") {
-          cardSelesai.classList.add("active-selesai");
-          document.getElementById("hint-selesai").textContent = "Aktif ✓";
-        } else if (appData.statusFilter === "TUNDA") {
-          cardTunda.classList.add("active-tunda");
-          document.getElementById("hint-tunda").textContent = "Aktif ✓";
-        } else {
-          cardAll.classList.add("active-all");
-          document.getElementById("hint-all").textContent = "Aktif ✓";
-        }
+      if (isActive) {
+        if (appData.statusFilter === "SELESAI") btnSelesai.classList.add("active-filter");
+        if (appData.statusFilter === "TUNDA") btnTunda.classList.add("active-filter");
       }
     }
 
     function setStatusFilter(status) {
-      if (appData.sheet === "TEMUAN" && appData.statusFilter === status && status !== "ALL") {
+      if (status === "ALL") {
+        appData.statusFilter = "ALL";
+      } else if (appData.sheet === "TEMUAN" && appData.statusFilter === status) {
         appData.statusFilter = "ALL";
       } else {
         appData.statusFilter = status;
@@ -787,7 +799,7 @@
       const rowInfo = document.getElementById("rowInfo");
 
       if (appData.sheet === "TEMUAN") {
-        const labelFilter = appData.statusFilter === "ALL" ? "" : ` (${appData.statusFilter})`;
+        const labelFilter = appData.statusFilter === "ALL" ? "" : ` • Filter: ${appData.statusFilter}`;
         heading.textContent = `Sheet: TEMUAN${labelFilter}`;
         const rows = appData.temuan.filter(item => passFilter(item, true));
         rowInfo.textContent = `${rows.length} baris`;
