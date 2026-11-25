@@ -421,6 +421,11 @@
       margin-bottom: 4px;
     }
 
+    .req-hint {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
     .modal-foot {
       padding: 12px 20px;
       background: var(--surface-alt);
@@ -549,6 +554,11 @@
       <form id="dataForm" onsubmit="submitFormData(event)">
         <div class="modal-body">
           <div class="field">
+            <label for="cfgWebAppUrl">URL Web App Apps Script (/exec)</label>
+            <input id="cfgWebAppUrl" type="text" placeholder="https://script.google.com/macros/s/.../exec" oninput="saveWebAppUrlInput()" />
+          </div>
+
+          <div class="field">
             <label for="inputType">Jenis Data (Sheet Tujuan)</label>
             <select id="inputType" onchange="toggleFormFields()">
               <option value="TEMUAN">Sheet TEMUAN</option>
@@ -556,18 +566,28 @@
             </select>
           </div>
 
+          <!-- FORM TEMUAN -->
           <div id="fieldsTemuan">
             <div class="form-grid" style="margin-bottom:10px;">
               <div class="field">
-                <label for="t_no_ba">No BA (jika ada)</label>
+                <label for="t_jenis">Temuan (Preventive/BA)</label>
+                <select id="t_jenis" onchange="updateTemuanNoBaRequirement()">
+                  <option value="Preventive">Preventive</option>
+                  <option value="Berita Acara">Berita Acara</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="t_no_ba">
+                  No BA <span id="t_no_ba_req" class="req-hint" style="display:none;">(Wajib diisi untuk Berita Acara)</span>
+                </label>
                 <input id="t_no_ba" type="text" placeholder="Contoh: BA/001/..." />
               </div>
               <div class="field">
-                <label for="t_divisi">Divisi *</label>
+                <label for="t_divisi">Divisi</label>
                 <input id="t_divisi" type="text" placeholder="Contoh: ELEKTRONIK / ELEKTRIK" />
               </div>
               <div class="field">
-                <label for="t_gedung">Gedung *</label>
+                <label for="t_gedung">Gedung</label>
                 <select id="t_gedung">
                   <option value="Cakti">Cakti</option>
                   <option value="Buddhi">Buddhi</option>
@@ -577,8 +597,8 @@
                 </select>
               </div>
               <div class="field">
-                <label for="t_lokasi">Lokasi</label>
-                <input id="t_lokasi" type="text" placeholder="Contoh: R. Rapat Lt. 5" />
+                <label for="t_lokasi">Lokasi/lantai (detail)</label>
+                <input id="t_lokasi" type="text" placeholder="Contoh: Lt. 5 / R. Rapat Utama" />
               </div>
               <div class="field">
                 <label for="t_tgl_temuan">Tanggal Temuan</label>
@@ -591,23 +611,19 @@
                   <option value="Selesai">Selesai</option>
                 </select>
               </div>
+              <div class="field">
+                <label for="t_tgl_perbaikan">Tanggal Perbaikan</label>
+                <input id="t_tgl_perbaikan" type="date" />
+              </div>
             </div>
             <div class="field" style="margin-bottom:10px;">
-              <label for="t_uraian">Uraian Temuan *</label>
+              <label for="t_uraian">Uraian Temuan</label>
               <textarea id="t_uraian" rows="2" placeholder="Jelaskan temuan..."></textarea>
             </div>
             <div class="form-grid">
               <div class="field">
-                <label for="t_jenis">Temuan (Preventive/BA)</label>
-                <input id="t_jenis" type="text" placeholder="Contoh: Temuan Preventive / BA" />
-              </div>
-              <div class="field">
                 <label for="t_tindak">Tindak Lanjut</label>
                 <input id="t_tindak" type="text" placeholder="Tindakan / rencana perbaikan" />
-              </div>
-              <div class="field">
-                <label for="t_tgl_perbaikan">Tanggal Perbaikan</label>
-                <input id="t_tgl_perbaikan" type="date" />
               </div>
               <div class="field">
                 <label for="t_ket">Keterangan</label>
@@ -616,14 +632,15 @@
             </div>
           </div>
 
+          <!-- FORM BERITA ACARA -->
           <div id="fieldsBa" style="display:none;">
             <div class="form-grid" style="margin-bottom:10px;">
               <div class="field">
-                <label for="b_no">No Berita Acara *</label>
+                <label for="b_no">No Berita Acara</label>
                 <input id="b_no" type="text" placeholder="Contoh: 001/BA/BM/2026" />
               </div>
               <div class="field">
-                <label for="b_pelapor">Pelapor *</label>
+                <label for="b_pelapor">Pelapor</label>
                 <input id="b_pelapor" type="text" placeholder="Nama pelapor" />
               </div>
               <div class="field">
@@ -635,11 +652,11 @@
                 <input id="b_tanggal" type="date" />
               </div>
               <div class="field">
-                <label for="b_lokasi">Lokasi / Lantai</label>
-                <input id="b_lokasi" type="text" placeholder="Contoh: Lt. 2 / Lobby" />
+                <label for="b_lokasi">Lokasi/lantai (detail)</label>
+                <input id="b_lokasi" type="text" placeholder="Contoh: Lt. 2 / Lobby Utama" />
               </div>
               <div class="field">
-                <label for="b_gedung">Gedung *</label>
+                <label for="b_gedung">Gedung</label>
                 <select id="b_gedung">
                   <option value="Cakti">Cakti</option>
                   <option value="Buddhi">Buddhi</option>
@@ -657,7 +674,7 @@
               </div>
             </div>
             <div class="field" style="margin-bottom:10px;">
-              <label for="b_uraian">Uraian *</label>
+              <label for="b_uraian">Uraian</label>
               <textarea id="b_uraian" rows="2" placeholder="Uraian berita acara..."></textarea>
             </div>
             <div class="field">
@@ -681,10 +698,11 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v10";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v11";
+    const URL_STORAGE_KEY = "kpdjp_apps_script_url_v1";
 
-    // Tempel URL Web App Apps Script (berakhiran /exec) di sini:
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycb.../exec";
+    // Bisa diisi langsung di sini atau diketik di form modal (otomatis tersimpan di browser)
+    const DEFAULT_WEB_APP_URL = "";
 
     const appData = {
       sheet: "TEMUAN",
@@ -697,7 +715,24 @@
       loadingMsg: "Memuat data..."
     };
 
-    function fetchWithTimeout(url, options = {}, timeoutMs = 2000) {
+    function getActiveWebAppUrl() {
+      const fromInput = document.getElementById("cfgWebAppUrl")?.value.trim();
+      if (fromInput) return fromInput;
+      try {
+        const saved = localStorage.getItem(URL_STORAGE_KEY);
+        if (saved && saved.trim()) return saved.trim();
+      } catch (_) {}
+      return DEFAULT_WEB_APP_URL.trim();
+    }
+
+    function saveWebAppUrlInput() {
+      const val = document.getElementById("cfgWebAppUrl")?.value.trim() || "";
+      try {
+        localStorage.setItem(URL_STORAGE_KEY, val);
+      } catch (_) {}
+    }
+
+    function fetchWithTimeout(url, options = {}, timeoutMs = 2500) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
       return fetch(url, { ...options, signal: controller.signal })
@@ -804,7 +839,7 @@
         no_ba: r.no_ba ?? pick(r, ["NO BA (JIKA ADA)", "NO BA", "NO_BA"]),
         divisi: r.divisi ?? pick(r, ["DIVISI"]),
         uraian_temuan: r.uraian_temuan ?? pick(r, ["URAIAN TEMUAN"]),
-        lokasi: r.lokasi ?? pick(r, ["LOKASI"]),
+        lokasi: r.lokasi ?? pick(r, ["LOKASI/LANTAI (DETAIL)", "LOKASI/LANTAI", "LOKASI"]),
         gedung: r.gedung ?? pick(r, ["GEDUNG"]),
         tanggal_temuan: r.tanggal_temuan ?? pick(r, ["TANGGAL TEMUAN"]),
         jenis_temuan: r.jenis_temuan ?? pick(r, ["TEMUAN (PREVENTIVE/BA)", "TEMUAN (PREVENTIVE/BA"]),
@@ -847,8 +882,8 @@
       const u1 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_TEMUAN}&${bust}`;
       const u2 = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_BA}&${bust}`;
       const [r1, r2] = await Promise.all([
-        fetchWithTimeout(u1, { mode: "cors" }, 2200),
-        fetchWithTimeout(u2, { mode: "cors" }, 2200)
+        fetchWithTimeout(u1, { mode: "cors" }, 2500),
+        fetchWithTimeout(u2, { mode: "cors" }, 2500)
       ]);
       if (!r1.ok || !r2.ok) throw new Error("Gagal ambil CSV Google Sheets");
 
@@ -900,8 +935,10 @@
       const msg = document.getElementById("formMsg");
       msg.className = "form-msg";
       msg.textContent = "";
+      document.getElementById("cfgWebAppUrl").value = getActiveWebAppUrl();
       document.getElementById("inputType").value = appData.sheet === "BA" ? "BA" : "TEMUAN";
       toggleFormFields();
+      updateTemuanNoBaRequirement();
       document.getElementById("inputModal").classList.add("open");
     }
 
@@ -913,6 +950,16 @@
       const isBa = document.getElementById("inputType").value === "BA";
       document.getElementById("fieldsTemuan").style.display = isBa ? "none" : "block";
       document.getElementById("fieldsBa").style.display = isBa ? "block" : "none";
+      updateTemuanNoBaRequirement();
+    }
+
+    function updateTemuanNoBaRequirement() {
+      const jenis = document.getElementById("t_jenis").value;
+      const isBaChoice = jenis === "Berita Acara";
+      const hint = document.getElementById("t_no_ba_req");
+      const inputNoBa = document.getElementById("t_no_ba");
+      hint.style.display = isBaChoice ? "inline" : "none";
+      inputNoBa.placeholder = isBaChoice ? "Wajib diisi untuk Berita Acara..." : "Contoh: BA/001/... (opsional)";
     }
 
     async function submitFormData(e) {
@@ -922,50 +969,85 @@
       msg.className = "form-msg";
       msg.textContent = "";
 
+      const webAppUrl = getActiveWebAppUrl();
+      if (!webAppUrl || !webAppUrl.startsWith("https://script.google.com/")) {
+        msg.className = "form-msg err";
+        msg.textContent = "Masukkan URL Web App Apps Script (https://script.google.com/macros/s/.../exec) pada kolom paling atas.";
+        return;
+      }
+
       const type = document.getElementById("inputType").value;
       let payloadData = {};
 
       if (type === "TEMUAN") {
+        const jenisTemuan = document.getElementById("t_jenis").value;
+        const noBa = document.getElementById("t_no_ba").value.trim();
         const divisi = document.getElementById("t_divisi").value.trim();
         const uraian = document.getElementById("t_uraian").value.trim();
-        if (!divisi || !uraian) {
+        const lokasi = document.getElementById("t_lokasi").value.trim();
+        const gedung = document.getElementById("t_gedung").value;
+        const tglTemuan = document.getElementById("t_tgl_temuan").value;
+        const tindakLanjut = document.getElementById("t_tindak").value.trim();
+        const tglPerbaikan = document.getElementById("t_tgl_perbaikan").value;
+        const status = document.getElementById("t_status").value;
+        const keterangan = document.getElementById("t_ket").value.trim();
+
+        if (jenisTemuan === "Berita Acara" && !noBa) {
           msg.className = "form-msg err";
-          msg.textContent = "Divisi dan Uraian Temuan wajib diisi.";
+          msg.textContent = "Karena pilihan Temuan adalah Berita Acara, No BA wajib diisi.";
+          document.getElementById("t_no_ba").focus();
           return;
         }
+
+        const adaIsi = [noBa, divisi, uraian, lokasi, tglTemuan, tindakLanjut, tglPerbaikan, keterangan].some(Boolean);
+        if (!adaIsi) {
+          msg.className = "form-msg err";
+          msg.textContent = "Isi minimal salah satu kolom data terlebih dahulu.";
+          return;
+        }
+
         payloadData = {
           no: String(appData.temuan.length + 1),
-          no_ba: document.getElementById("t_no_ba").value.trim(),
+          no_ba: noBa,
           divisi,
           uraian_temuan: uraian,
-          lokasi: document.getElementById("t_lokasi").value.trim(),
-          gedung: document.getElementById("t_gedung").value,
-          tanggal_temuan: document.getElementById("t_tgl_temuan").value,
-          jenis_temuan: document.getElementById("t_jenis").value.trim(),
-          tindak_lanjut: document.getElementById("t_tindak").value.trim(),
-          tanggal_perbaikan: document.getElementById("t_tgl_perbaikan").value,
-          status: document.getElementById("t_status").value,
-          keterangan: document.getElementById("t_ket").value.trim()
+          lokasi,
+          gedung,
+          tanggal_temuan: tglTemuan,
+          jenis_temuan: jenisTemuan,
+          tindak_lanjut: tindakLanjut,
+          tanggal_perbaikan: tglPerbaikan,
+          status,
+          keterangan
         };
       } else {
         const noBa = document.getElementById("b_no").value.trim();
         const pelapor = document.getElementById("b_pelapor").value.trim();
+        const divisi = document.getElementById("b_divisi").value.trim();
         const uraian = document.getElementById("b_uraian").value.trim();
-        if (!noBa || !pelapor || !uraian) {
+        const tanggal = document.getElementById("b_tanggal").value;
+        const lokasiLantai = document.getElementById("b_lokasi").value.trim();
+        const gedung = document.getElementById("b_gedung").value;
+        const status = document.getElementById("b_status").value;
+        const keterangan = document.getElementById("b_ket").value.trim();
+
+        const adaIsi = [noBa, pelapor, divisi, uraian, tanggal, lokasiLantai, keterangan].some(Boolean);
+        if (!adaIsi) {
           msg.className = "form-msg err";
-          msg.textContent = "No Berita Acara, Pelapor, dan Uraian wajib diisi.";
+          msg.textContent = "Isi minimal salah satu kolom Berita Acara terlebih dahulu.";
           return;
         }
+
         payloadData = {
           no_berita_acara: noBa,
           pelapor,
-          divisi: document.getElementById("b_divisi").value.trim(),
+          divisi,
           uraian,
-          tanggal: document.getElementById("b_tanggal").value,
-          lokasi_lantai: document.getElementById("b_lokasi").value.trim(),
-          gedung: document.getElementById("b_gedung").value,
-          status: document.getElementById("b_status").value,
-          keterangan: document.getElementById("b_ket").value.trim()
+          tanggal,
+          lokasi_lantai: lokasiLantai,
+          gedung,
+          status,
+          keterangan
         };
       }
 
@@ -973,29 +1055,15 @@
       btn.textContent = "Menyimpan...";
 
       try {
-        if (!WEB_APP_URL || !WEB_APP_URL.startsWith("https://script.google.com/")) {
-          throw new Error("WEB_APP_URL belum diisi URL Apps Script (/exec) yang valid.");
-        }
+        const formBody = new URLSearchParams();
+        formBody.append("payload", JSON.stringify({ type, data: payloadData }));
 
-        const res = await fetch(WEB_APP_URL, {
+        await fetch(webAppUrl, {
           method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({ type, data: payloadData })
+          mode: "no-cors",
+          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+          body: formBody.toString()
         });
-
-        const rawText = await res.text();
-        let result = null;
-        try {
-          result = JSON.parse(rawText);
-        } catch (_) {
-          throw new Error(
-            "Apps Script tidak mengembalikan JSON (kemungkinan akses Web App belum diatur 'Siapa saja' atau deployment belum diperbarui)."
-          );
-        }
-
-        if (!result.ok) {
-          throw new Error(result.error || "Gagal menyimpan ke Google Sheets.");
-        }
 
         if (type === "TEMUAN") {
           appData.temuan.push(normalizeTemuanItem(payloadData, appData.temuan.length));
@@ -1006,15 +1074,29 @@
         }
 
         appData.updated = new Date().toLocaleString("id-ID");
-        appData.source = "Google Sheets (tersimpan)";
+        appData.source = "Google Sheets (dikirim)";
         saveCache();
         refreshSummary();
         renderTable();
 
         msg.className = "form-msg ok";
-        msg.textContent = "Berhasil tersimpan ke Google Sheets!";
-        document.getElementById("dataForm").reset();
-        setTimeout(() => closeInputModal(), 700);
+        msg.textContent = "Data dikirim ke Google Sheets! Klik 'Muat Ulang' beberapa detik lagi untuk memastikan sinkron dengan sheet.";
+        document.getElementById("t_no_ba").value = "";
+        document.getElementById("t_divisi").value = "";
+        document.getElementById("t_lokasi").value = "";
+        document.getElementById("t_tgl_temuan").value = "";
+        document.getElementById("t_uraian").value = "";
+        document.getElementById("t_tindak").value = "";
+        document.getElementById("t_tgl_perbaikan").value = "";
+        document.getElementById("t_ket").value = "";
+        document.getElementById("b_no").value = "";
+        document.getElementById("b_pelapor").value = "";
+        document.getElementById("b_divisi").value = "";
+        document.getElementById("b_tanggal").value = "";
+        document.getElementById("b_lokasi").value = "";
+        document.getElementById("b_uraian").value = "";
+        document.getElementById("b_ket").value = "";
+        setTimeout(() => closeInputModal(), 900);
       } catch (err) {
         msg.className = "form-msg err";
         msg.textContent = err.message || String(err);
@@ -1149,7 +1231,7 @@
                 <th>No BA</th>
                 <th>Divisi</th>
                 <th>Uraian Temuan</th>
-                <th>Lokasi</th>
+                <th>Lokasi/lantai (detail)</th>
                 <th>Gedung</th>
                 <th>Tgl Temuan</th>
                 <th>Temuan (Preventive/BA)</th>
