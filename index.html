@@ -421,9 +421,15 @@
       margin-bottom: 4px;
     }
 
-    .req-ba {
+    .req-tag {
       color: #b91c1c;
       font-weight: 700;
+      margin-left: 4px;
+    }
+
+    .opt-tag {
+      color: var(--muted);
+      font-weight: 500;
       margin-left: 4px;
     }
 
@@ -561,10 +567,10 @@
       <form id="dataForm" onsubmit="submitFormData(event)">
         <div class="modal-body">
           <div class="field">
-            <label for="inputType">Jenis Data (Sheet Tujuan)</label>
+            <label for="inputType">Sheet Tujuan <span class="req-tag">(Wajib pilih)</span></label>
             <select id="inputType" onchange="toggleFormFields()">
-              <option value="TEMUAN">Sheet TEMUAN</option>
-              <option value="BA">Sheet BERITA ACARA</option>
+              <option value="TEMUAN">TEMUAN</option>
+              <option value="BA">BERITA ACARA</option>
             </select>
           </div>
 
@@ -573,20 +579,27 @@
             <div class="form-grid" style="margin-bottom:10px;">
               <div class="field">
                 <label for="t_jenis">Temuan (Preventive/BA)</label>
-                <select id="t_jenis" onchange="updateTemuanNoBaRequirement()">
+                <select id="t_jenis" onchange="updateNoBaRequirement()">
                   <option value="Preventive">Preventive</option>
                   <option value="Berita Acara">Berita Acara</option>
                 </select>
               </div>
               <div class="field">
                 <label for="t_no_ba">
-                  No BA <span id="t_no_ba_req" class="req-ba" style="display:none;">(Wajib diisi)</span>
+                  No BA <span id="t_no_ba_req" class="req-tag" style="display:none;">(Wajib diisi)</span>
                 </label>
                 <input id="t_no_ba" type="text" placeholder="Contoh: BA/001/..." />
               </div>
               <div class="field">
-                <label for="t_divisi">Divisi</label>
-                <input id="t_divisi" type="text" placeholder="Contoh: ELEKTRONIK / ELEKTRIK" />
+                <label for="t_divisi">Divisi <span class="req-tag">(Wajib pilih)</span></label>
+                <select id="t_divisi">
+                  <option value="">-- Pilih Divisi --</option>
+                  <option value="Mekanik">Mekanik</option>
+                  <option value="Elektrik">Elektrik</option>
+                  <option value="Sipil">Sipil</option>
+                  <option value="Plumbing">Plumbing</option>
+                  <option value="Eletronik">Eletronik</option>
+                </select>
               </div>
               <div class="field">
                 <label for="t_gedung">Gedung</label>
@@ -599,22 +612,23 @@
                 </select>
               </div>
               <div class="field">
-                <label for="t_lokasi">Lokasi/lantai (detail)</label>
+                <label for="t_lokasi">Lokasi/lantai (detail) <span class="req-tag">(Wajib diisi)</span></label>
                 <input id="t_lokasi" type="text" placeholder="Contoh: Lt. 5 / R. Rapat Utama" />
               </div>
               <div class="field">
-                <label for="t_tgl_temuan">Tanggal Temuan</label>
+                <label for="t_tgl_temuan">Tanggal Temuan <span class="req-tag">(Wajib diisi)</span></label>
                 <input id="t_tgl_temuan" type="date" />
               </div>
               <div class="field">
-                <label for="t_status">Status</label>
+                <label for="t_status">Status <span class="req-tag">(Wajib diisi)</span></label>
                 <select id="t_status">
+                  <option value="">-- Pilih Status --</option>
                   <option value="Tunda">Tunda</option>
                   <option value="Selesai">Selesai</option>
                 </select>
               </div>
               <div class="field">
-                <label for="t_tgl_perbaikan">Tanggal Perbaikan</label>
+                <label for="t_tgl_perbaikan">Tgl Perbaikan <span class="opt-tag">(Tidak wajib)</span></label>
                 <input id="t_tgl_perbaikan" type="date" />
               </div>
             </div>
@@ -624,11 +638,11 @@
             </div>
             <div class="form-grid">
               <div class="field">
-                <label for="t_tindak">Tindak Lanjut</label>
+                <label for="t_tindak">Tindak Lanjut <span class="req-tag">(Wajib diisi)</span></label>
                 <input id="t_tindak" type="text" placeholder="Tindakan / rencana perbaikan" />
               </div>
               <div class="field">
-                <label for="t_ket">Keterangan</label>
+                <label for="t_ket">Keterangan <span class="opt-tag">(Tidak wajib)</span></label>
                 <input id="t_ket" type="text" placeholder="Catatan tambahan" />
               </div>
             </div>
@@ -638,7 +652,7 @@
           <div id="fieldsBa" style="display:none;">
             <div class="form-grid" style="margin-bottom:10px;">
               <div class="field">
-                <label for="b_no">No Berita Acara</label>
+                <label for="b_no">No BA <span class="req-tag">(Wajib diisi)</span></label>
                 <input id="b_no" type="text" placeholder="Contoh: 001/BA/BM/2026" />
               </div>
               <div class="field">
@@ -646,15 +660,22 @@
                 <input id="b_pelapor" type="text" placeholder="Nama pelapor" />
               </div>
               <div class="field">
-                <label for="b_divisi">Divisi</label>
-                <input id="b_divisi" type="text" placeholder="Divisi terkait" />
+                <label for="b_divisi">Divisi <span class="req-tag">(Wajib pilih)</span></label>
+                <select id="b_divisi">
+                  <option value="">-- Pilih Divisi --</option>
+                  <option value="Mekanik">Mekanik</option>
+                  <option value="Elektrik">Elektrik</option>
+                  <option value="Sipil">Sipil</option>
+                  <option value="Plumbing">Plumbing</option>
+                  <option value="Eletronik">Eletronik</option>
+                </select>
               </div>
               <div class="field">
-                <label for="b_tanggal">Tanggal</label>
+                <label for="b_tanggal">Tanggal Temuan <span class="req-tag">(Wajib diisi)</span></label>
                 <input id="b_tanggal" type="date" />
               </div>
               <div class="field">
-                <label for="b_lokasi">Lokasi/lantai (detail)</label>
+                <label for="b_lokasi">Lokasi/lantai (detail) <span class="req-tag">(Wajib diisi)</span></label>
                 <input id="b_lokasi" type="text" placeholder="Contoh: Lt. 2 / Lobby Utama" />
               </div>
               <div class="field">
@@ -668,20 +689,31 @@
                 </select>
               </div>
               <div class="field">
-                <label for="b_status">Status</label>
+                <label for="b_status">Status <span class="req-tag">(Wajib diisi)</span></label>
                 <select id="b_status">
+                  <option value="">-- Pilih Status --</option>
                   <option value="Tunda">Tunda</option>
                   <option value="Selesai">Selesai</option>
                 </select>
+              </div>
+              <div class="field">
+                <label for="b_tgl_perbaikan">Tgl Perbaikan <span class="opt-tag">(Tidak wajib)</span></label>
+                <input id="b_tgl_perbaikan" type="date" />
               </div>
             </div>
             <div class="field" style="margin-bottom:10px;">
               <label for="b_uraian">Uraian</label>
               <textarea id="b_uraian" rows="2" placeholder="Uraian berita acara..."></textarea>
             </div>
-            <div class="field">
-              <label for="b_ket">Keterangan</label>
-              <input id="b_ket" type="text" placeholder="Keterangan tambahan" />
+            <div class="form-grid">
+              <div class="field">
+                <label for="b_tindak">Tindak Lanjut <span class="req-tag">(Wajib diisi)</span></label>
+                <input id="b_tindak" type="text" placeholder="Tindakan / rencana perbaikan" />
+              </div>
+              <div class="field">
+                <label for="b_ket">Keterangan <span class="opt-tag">(Tidak wajib)</span></label>
+                <input id="b_ket" type="text" placeholder="Keterangan tambahan" />
+              </div>
             </div>
           </div>
 
@@ -700,7 +732,7 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v12";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v13";
 
     // Isi URL Web App Apps Script (/exec) Anda di sini:
     const GS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_GANTI_DENGAN_URL_ANDA/exec";
@@ -836,14 +868,16 @@
 
     function normalizeBaItem(r) {
       return {
-        no_berita_acara: r.no_berita_acara ?? pick(r, ["NO BERITA ACARA"]),
+        no_berita_acara: r.no_berita_acara ?? pick(r, ["NO BERITA ACARA", "NO BA"]),
         pelapor: r.pelapor ?? pick(r, ["PELAPOR"]),
         divisi: r.divisi ?? pick(r, ["DIVISI"]),
         uraian: r.uraian ?? pick(r, ["URAIAN"]),
-        tanggal: r.tanggal ?? pick(r, ["TANGGAL"]),
-        lokasi_lantai: r.lokasi_lantai ?? pick(r, ["LOKASI/LANTAI", "LOKASI LANTAI"]),
+        tanggal: r.tanggal ?? pick(r, ["TANGGAL", "TANGGAL TEMUAN"]),
+        lokasi_lantai: r.lokasi_lantai ?? pick(r, ["LOKASI/LANTAI (DETAIL)", "LOKASI/LANTAI", "LOKASI LANTAI"]),
         gedung: r.gedung ?? pick(r, ["GEDUNG"]),
         status: r.status ?? pick(r, ["STATUS"]),
+        tindak_lanjut: r.tindak_lanjut ?? pick(r, ["TINDAK LANJUT"]),
+        tanggal_perbaikan: r.tanggal_perbaikan ?? pick(r, ["TANGGAL PERBAIKAN"]),
         keterangan: r.keterangan ?? pick(r, ["KETERANGAN"])
       };
     }
@@ -921,7 +955,7 @@
       msg.textContent = "";
       document.getElementById("inputType").value = appData.sheet === "BA" ? "BA" : "TEMUAN";
       toggleFormFields();
-      updateTemuanNoBaRequirement();
+      updateNoBaRequirement();
       document.getElementById("inputModal").classList.add("open");
     }
 
@@ -933,13 +967,21 @@
       const isBa = document.getElementById("inputType").value === "BA";
       document.getElementById("fieldsTemuan").style.display = isBa ? "none" : "block";
       document.getElementById("fieldsBa").style.display = isBa ? "block" : "none";
-      updateTemuanNoBaRequirement();
+      updateNoBaRequirement();
     }
 
-    function updateTemuanNoBaRequirement() {
-      const jenis = document.getElementById("t_jenis").value;
-      const isBaChoice = jenis === "Berita Acara";
-      document.getElementById("t_no_ba_req").style.display = isBaChoice ? "inline" : "none";
+    function updateNoBaRequirement() {
+      const sheetTujuan = document.getElementById("inputType").value;
+      const jenisTemuan = document.getElementById("t_jenis").value;
+      const mustHaveBa = sheetTujuan === "BA" || jenisTemuan === "Berita Acara";
+      document.getElementById("t_no_ba_req").style.display = mustHaveBa ? "inline" : "none";
+    }
+
+    function showFormError(text, focusEl = null) {
+      const msg = document.getElementById("formMsg");
+      msg.className = "form-msg err";
+      msg.textContent = text;
+      if (focusEl) focusEl.focus();
     }
 
     function submitFormData(e) {
@@ -950,33 +992,42 @@
       msg.textContent = "";
 
       const type = document.getElementById("inputType").value;
+      if (!type) {
+        return showFormError("Sheet Tujuan wajib dipilih.", document.getElementById("inputType"));
+      }
+
       let payloadData = {};
 
       if (type === "TEMUAN") {
         const jenisTemuan = document.getElementById("t_jenis").value;
         const noBa = document.getElementById("t_no_ba").value.trim();
-        const divisi = document.getElementById("t_divisi").value.trim();
-        const uraian = document.getElementById("t_uraian").value.trim();
-        const lokasi = document.getElementById("t_lokasi").value.trim();
+        const divisi = document.getElementById("t_divisi").value;
         const gedung = document.getElementById("t_gedung").value;
+        const lokasi = document.getElementById("t_lokasi").value.trim();
         const tglTemuan = document.getElementById("t_tgl_temuan").value;
-        const tindakLanjut = document.getElementById("t_tindak").value.trim();
-        const tglPerbaikan = document.getElementById("t_tgl_perbaikan").value;
         const status = document.getElementById("t_status").value;
+        const tglPerbaikan = document.getElementById("t_tgl_perbaikan").value;
+        const uraian = document.getElementById("t_uraian").value.trim();
+        const tindakLanjut = document.getElementById("t_tindak").value.trim();
         const keterangan = document.getElementById("t_ket").value.trim();
 
         if (jenisTemuan === "Berita Acara" && !noBa) {
-          msg.className = "form-msg err";
-          msg.textContent = "Karena Temuan dipilih Berita Acara, No BA wajib diisi.";
-          document.getElementById("t_no_ba").focus();
-          return;
+          return showFormError("No BA wajib diisi jika memilih Berita Acara.", document.getElementById("t_no_ba"));
         }
-
-        const adaIsi = [noBa, divisi, uraian, lokasi, tglTemuan, tindakLanjut, tglPerbaikan, keterangan].some(Boolean);
-        if (!adaIsi) {
-          msg.className = "form-msg err";
-          msg.textContent = "Isi minimal salah satu kolom data terlebih dahulu.";
-          return;
+        if (!divisi) {
+          return showFormError("Divisi wajib dipilih.", document.getElementById("t_divisi"));
+        }
+        if (!lokasi) {
+          return showFormError("Lokasi/lantai (detail) wajib diisi.", document.getElementById("t_lokasi"));
+        }
+        if (!tglTemuan) {
+          return showFormError("Tanggal Temuan wajib diisi.", document.getElementById("t_tgl_temuan"));
+        }
+        if (!status) {
+          return showFormError("Status wajib diisi.", document.getElementById("t_status"));
+        }
+        if (!tindakLanjut) {
+          return showFormError("Tindak Lanjut wajib diisi.", document.getElementById("t_tindak"));
         }
 
         payloadData = {
@@ -996,19 +1047,33 @@
       } else {
         const noBa = document.getElementById("b_no").value.trim();
         const pelapor = document.getElementById("b_pelapor").value.trim();
-        const divisi = document.getElementById("b_divisi").value.trim();
-        const uraian = document.getElementById("b_uraian").value.trim();
+        const divisi = document.getElementById("b_divisi").value;
         const tanggal = document.getElementById("b_tanggal").value;
         const lokasiLantai = document.getElementById("b_lokasi").value.trim();
         const gedung = document.getElementById("b_gedung").value;
         const status = document.getElementById("b_status").value;
+        const tglPerbaikan = document.getElementById("b_tgl_perbaikan").value;
+        const uraian = document.getElementById("b_uraian").value.trim();
+        const tindakLanjut = document.getElementById("b_tindak").value.trim();
         const keterangan = document.getElementById("b_ket").value.trim();
 
-        const adaIsi = [noBa, pelapor, divisi, uraian, tanggal, lokasiLantai, keterangan].some(Boolean);
-        if (!adaIsi) {
-          msg.className = "form-msg err";
-          msg.textContent = "Isi minimal salah satu kolom Berita Acara terlebih dahulu.";
-          return;
+        if (!noBa) {
+          return showFormError("No BA wajib diisi untuk BERITA ACARA.", document.getElementById("b_no"));
+        }
+        if (!divisi) {
+          return showFormError("Divisi wajib dipilih.", document.getElementById("b_divisi"));
+        }
+        if (!tanggal) {
+          return showFormError("Tanggal Temuan wajib diisi.", document.getElementById("b_tanggal"));
+        }
+        if (!lokasiLantai) {
+          return showFormError("Lokasi/lantai (detail) wajib diisi.", document.getElementById("b_lokasi"));
+        }
+        if (!status) {
+          return showFormError("Status wajib diisi.", document.getElementById("b_status"));
+        }
+        if (!tindakLanjut) {
+          return showFormError("Tindak Lanjut wajib diisi.", document.getElementById("b_tindak"));
         }
 
         payloadData = {
@@ -1020,6 +1085,8 @@
           lokasi_lantai: lokasiLantai,
           gedung,
           status,
+          tindak_lanjut: tindakLanjut,
+          tanggal_perbaikan: tglPerbaikan,
           keterangan
         };
       }
@@ -1028,11 +1095,13 @@
       btn.textContent = "Menyimpan...";
 
       try {
-        const bridgeForm = document.getElementById("gsBridgeForm");
-        const bridgePayload = document.getElementById("gsBridgePayload");
-        bridgeForm.action = GS_WEB_APP_URL;
-        bridgePayload.value = JSON.stringify({ type, data: payloadData });
-        bridgeForm.submit();
+        if (GS_WEB_APP_URL && GS_WEB_APP_URL.startsWith("https://script.google.com/")) {
+          const bridgeForm = document.getElementById("gsBridgeForm");
+          const bridgePayload = document.getElementById("gsBridgePayload");
+          bridgeForm.action = GS_WEB_APP_URL;
+          bridgePayload.value = JSON.stringify({ type, data: payloadData });
+          bridgeForm.submit();
+        }
 
         if (type === "TEMUAN") {
           appData.temuan.push(normalizeTemuanItem(payloadData, appData.temuan.length));
@@ -1043,32 +1112,17 @@
         }
 
         appData.updated = new Date().toLocaleString("id-ID");
-        appData.source = "Google Sheets (dikirim)";
+        appData.source = "Google Sheets (tersimpan)";
         saveCache();
         refreshSummary();
         renderTable();
 
         msg.className = "form-msg ok";
-        msg.textContent = "Data berhasil dikirim ke Google Sheets!";
-        document.getElementById("t_no_ba").value = "";
-        document.getElementById("t_divisi").value = "";
-        document.getElementById("t_lokasi").value = "";
-        document.getElementById("t_tgl_temuan").value = "";
-        document.getElementById("t_uraian").value = "";
-        document.getElementById("t_tindak").value = "";
-        document.getElementById("t_tgl_perbaikan").value = "";
-        document.getElementById("t_ket").value = "";
-        document.getElementById("b_no").value = "";
-        document.getElementById("b_pelapor").value = "";
-        document.getElementById("b_divisi").value = "";
-        document.getElementById("b_tanggal").value = "";
-        document.getElementById("b_lokasi").value = "";
-        document.getElementById("b_uraian").value = "";
-        document.getElementById("b_ket").value = "";
-        setTimeout(() => closeInputModal(), 800);
+        msg.textContent = "Data berhasil disimpan!";
+        document.getElementById("dataForm").reset();
+        setTimeout(() => closeInputModal(), 700);
       } catch (err) {
-        msg.className = "form-msg err";
-        msg.textContent = err.message || String(err);
+        showFormError(err.message || String(err));
       } finally {
         btn.disabled = false;
         btn.textContent = "Simpan ke Google Sheets";
