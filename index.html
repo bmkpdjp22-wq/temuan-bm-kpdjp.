@@ -421,16 +421,10 @@
       margin-bottom: 4px;
     }
 
-    .req-tag {
-      color: #b91c1c;
+    .star-red {
+      color: #dc2626;
       font-weight: 700;
-      margin-left: 4px;
-    }
-
-    .opt-tag {
-      color: var(--muted);
-      font-weight: 500;
-      margin-left: 4px;
+      margin-left: 2px;
     }
 
     .modal-foot {
@@ -567,7 +561,7 @@
       <form id="dataForm" onsubmit="submitFormData(event)">
         <div class="modal-body">
           <div class="field">
-            <label for="inputType">Sheet Tujuan <span class="req-tag">(Wajib pilih)</span></label>
+            <label for="inputType">Sheet Tujuan <span class="star-red">*</span></label>
             <select id="inputType" onchange="toggleFormFields()">
               <option value="TEMUAN">TEMUAN</option>
               <option value="BA">BERITA ACARA</option>
@@ -585,13 +579,11 @@
                 </select>
               </div>
               <div class="field">
-                <label for="t_no_ba">
-                  No BA <span id="t_no_ba_req" class="req-tag" style="display:none;">(Wajib diisi)</span>
-                </label>
+                <label for="t_no_ba">No BA <span id="t_no_ba_req" class="star-red" style="display:none;">*</span></label>
                 <input id="t_no_ba" type="text" placeholder="Contoh: BA/001/..." />
               </div>
               <div class="field">
-                <label for="t_divisi">Divisi <span class="req-tag">(Wajib pilih)</span></label>
+                <label for="t_divisi">Divisi <span class="star-red">*</span></label>
                 <select id="t_divisi">
                   <option value="">-- Pilih Divisi --</option>
                   <option value="Mekanik">Mekanik</option>
@@ -612,15 +604,15 @@
                 </select>
               </div>
               <div class="field">
-                <label for="t_lokasi">Lokasi/lantai (detail) <span class="req-tag">(Wajib diisi)</span></label>
+                <label for="t_lokasi">Lokasi/lantai (detail) <span class="star-red">*</span></label>
                 <input id="t_lokasi" type="text" placeholder="Contoh: Lt. 5 / R. Rapat Utama" />
               </div>
               <div class="field">
-                <label for="t_tgl_temuan">Tanggal Temuan <span class="req-tag">(Wajib diisi)</span></label>
+                <label for="t_tgl_temuan">Tanggal Temuan <span class="star-red">*</span></label>
                 <input id="t_tgl_temuan" type="date" />
               </div>
               <div class="field">
-                <label for="t_status">Status <span class="req-tag">(Wajib diisi)</span></label>
+                <label for="t_status">Status <span class="star-red">*</span></label>
                 <select id="t_status">
                   <option value="">-- Pilih Status --</option>
                   <option value="Tunda">Tunda</option>
@@ -628,7 +620,7 @@
                 </select>
               </div>
               <div class="field">
-                <label for="t_tgl_perbaikan">Tgl Perbaikan <span class="opt-tag">(Tidak wajib)</span></label>
+                <label for="t_tgl_perbaikan">Tgl Perbaikan</label>
                 <input id="t_tgl_perbaikan" type="date" />
               </div>
             </div>
@@ -638,11 +630,11 @@
             </div>
             <div class="form-grid">
               <div class="field">
-                <label for="t_tindak">Tindak Lanjut <span class="req-tag">(Wajib diisi)</span></label>
+                <label for="t_tindak">Tindak Lanjut <span class="star-red">*</span></label>
                 <input id="t_tindak" type="text" placeholder="Tindakan / rencana perbaikan" />
               </div>
               <div class="field">
-                <label for="t_ket">Keterangan <span class="opt-tag">(Tidak wajib)</span></label>
+                <label for="t_ket">Keterangan</label>
                 <input id="t_ket" type="text" placeholder="Catatan tambahan" />
               </div>
             </div>
@@ -652,7 +644,7 @@
           <div id="fieldsBa" style="display:none;">
             <div class="form-grid" style="margin-bottom:10px;">
               <div class="field">
-                <label for="b_no">No BA <span class="req-tag">(Wajib diisi)</span></label>
+                <label for="b_no">No BA <span class="star-red">*</span></label>
                 <input id="b_no" type="text" placeholder="Contoh: 001/BA/BM/2026" />
               </div>
               <div class="field">
@@ -660,7 +652,7 @@
                 <input id="b_pelapor" type="text" placeholder="Nama pelapor" />
               </div>
               <div class="field">
-                <label for="b_divisi">Divisi <span class="req-tag">(Wajib pilih)</span></label>
+                <label for="b_divisi">Divisi <span class="star-red">*</span></label>
                 <select id="b_divisi">
                   <option value="">-- Pilih Divisi --</option>
                   <option value="Mekanik">Mekanik</option>
@@ -671,11 +663,11 @@
                 </select>
               </div>
               <div class="field">
-                <label for="b_tanggal">Tanggal Temuan <span class="req-tag">(Wajib diisi)</span></label>
+                <label for="b_tanggal">Tanggal Temuan <span class="star-red">*</span></label>
                 <input id="b_tanggal" type="date" />
               </div>
               <div class="field">
-                <label for="b_lokasi">Lokasi/lantai (detail) <span class="req-tag">(Wajib diisi)</span></label>
+                <label for="b_lokasi">Lokasi/lantai (detail) <span class="star-red">*</span></label>
                 <input id="b_lokasi" type="text" placeholder="Contoh: Lt. 2 / Lobby Utama" />
               </div>
               <div class="field">
@@ -689,7 +681,7 @@
                 </select>
               </div>
               <div class="field">
-                <label for="b_status">Status <span class="req-tag">(Wajib diisi)</span></label>
+                <label for="b_status">Status <span class="star-red">*</span></label>
                 <select id="b_status">
                   <option value="">-- Pilih Status --</option>
                   <option value="Tunda">Tunda</option>
@@ -697,7 +689,7 @@
                 </select>
               </div>
               <div class="field">
-                <label for="b_tgl_perbaikan">Tgl Perbaikan <span class="opt-tag">(Tidak wajib)</span></label>
+                <label for="b_tgl_perbaikan">Tgl Perbaikan</label>
                 <input id="b_tgl_perbaikan" type="date" />
               </div>
             </div>
@@ -707,11 +699,11 @@
             </div>
             <div class="form-grid">
               <div class="field">
-                <label for="b_tindak">Tindak Lanjut <span class="req-tag">(Wajib diisi)</span></label>
+                <label for="b_tindak">Tindak Lanjut <span class="star-red">*</span></label>
                 <input id="b_tindak" type="text" placeholder="Tindakan / rencana perbaikan" />
               </div>
               <div class="field">
-                <label for="b_ket">Keterangan <span class="opt-tag">(Tidak wajib)</span></label>
+                <label for="b_ket">Keterangan</label>
                 <input id="b_ket" type="text" placeholder="Keterangan tambahan" />
               </div>
             </div>
@@ -732,7 +724,7 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v13";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v14";
 
     // Isi URL Web App Apps Script (/exec) Anda di sini:
     const GS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_GANTI_DENGAN_URL_ANDA/exec";
@@ -993,7 +985,7 @@
 
       const type = document.getElementById("inputType").value;
       if (!type) {
-        return showFormError("Sheet Tujuan wajib dipilih.", document.getElementById("inputType"));
+        return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("inputType"));
       }
 
       let payloadData = {};
@@ -1012,22 +1004,22 @@
         const keterangan = document.getElementById("t_ket").value.trim();
 
         if (jenisTemuan === "Berita Acara" && !noBa) {
-          return showFormError("No BA wajib diisi jika memilih Berita Acara.", document.getElementById("t_no_ba"));
+          return showFormError("No BA wajib diisi (*).", document.getElementById("t_no_ba"));
         }
         if (!divisi) {
-          return showFormError("Divisi wajib dipilih.", document.getElementById("t_divisi"));
+          return showFormError("Divisi wajib dipilih (*).", document.getElementById("t_divisi"));
         }
         if (!lokasi) {
-          return showFormError("Lokasi/lantai (detail) wajib diisi.", document.getElementById("t_lokasi"));
+          return showFormError("Lokasi/lantai (detail) wajib diisi (*).", document.getElementById("t_lokasi"));
         }
         if (!tglTemuan) {
-          return showFormError("Tanggal Temuan wajib diisi.", document.getElementById("t_tgl_temuan"));
+          return showFormError("Tanggal Temuan wajib diisi (*).", document.getElementById("t_tgl_temuan"));
         }
         if (!status) {
-          return showFormError("Status wajib diisi.", document.getElementById("t_status"));
+          return showFormError("Status wajib diisi (*).", document.getElementById("t_status"));
         }
         if (!tindakLanjut) {
-          return showFormError("Tindak Lanjut wajib diisi.", document.getElementById("t_tindak"));
+          return showFormError("Tindak Lanjut wajib diisi (*).", document.getElementById("t_tindak"));
         }
 
         payloadData = {
@@ -1058,22 +1050,22 @@
         const keterangan = document.getElementById("b_ket").value.trim();
 
         if (!noBa) {
-          return showFormError("No BA wajib diisi untuk BERITA ACARA.", document.getElementById("b_no"));
+          return showFormError("No BA wajib diisi (*).", document.getElementById("b_no"));
         }
         if (!divisi) {
-          return showFormError("Divisi wajib dipilih.", document.getElementById("b_divisi"));
+          return showFormError("Divisi wajib dipilih (*).", document.getElementById("b_divisi"));
         }
         if (!tanggal) {
-          return showFormError("Tanggal Temuan wajib diisi.", document.getElementById("b_tanggal"));
+          return showFormError("Tanggal Temuan wajib diisi (*).", document.getElementById("b_tanggal"));
         }
         if (!lokasiLantai) {
-          return showFormError("Lokasi/lantai (detail) wajib diisi.", document.getElementById("b_lokasi"));
+          return showFormError("Lokasi/lantai (detail) wajib diisi (*).", document.getElementById("b_lokasi"));
         }
         if (!status) {
-          return showFormError("Status wajib diisi.", document.getElementById("b_status"));
+          return showFormError("Status wajib diisi (*).", document.getElementById("b_status"));
         }
         if (!tindakLanjut) {
-          return showFormError("Tindak Lanjut wajib diisi.", document.getElementById("b_tindak"));
+          return showFormError("Tindak Lanjut wajib diisi (*).", document.getElementById("b_tindak"));
         }
 
         payloadData = {
