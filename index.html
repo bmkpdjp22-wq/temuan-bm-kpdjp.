@@ -449,6 +449,7 @@
       padding: 8px 12px;
       border-radius: 8px;
       display: none;
+      line-height: 1.45;
     }
 
     .form-msg.err { display: block; background: #fee2e2; color: #b91c1c; }
@@ -680,10 +681,10 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v9";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v10";
 
-    // Isi dengan URL Web App dari Google Apps Script (hasil Deploy -> Web App)
-    const WEB_APP_URL = "TEMPEL_URL_WEB_APP_ANDA_DI_SINI";
+    // Tempel URL Web App Apps Script (berakhiran /exec) di sini:
+    const WEB_APP_URL = "";
 
     const appData = {
       sheet: "TEMUAN",
@@ -972,8 +973,8 @@
       btn.textContent = "Menyimpan...";
 
       try {
-        if (!WEB_APP_URL) {
-          throw new Error("WEB_APP_URL belum diisi. Isi URL Web App Apps Script terlebih dahulu agar tersimpan ke Google Sheets.");
+        if (!WEB_APP_URL || !WEB_APP_URL.startsWith("https://script.google.com/")) {
+          throw new Error("WEB_APP_URL belum diisi URL Apps Script (/exec) yang valid.");
         }
 
         const res = await fetch(WEB_APP_URL, {
@@ -981,8 +982,20 @@
           headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify({ type, data: payloadData })
         });
-        const result = await res.json();
-        if (!result.ok) throw new Error(result.error || "Gagal menyimpan ke Google Sheets.");
+
+        const rawText = await res.text();
+        let result = null;
+        try {
+          result = JSON.parse(rawText);
+        } catch (_) {
+          throw new Error(
+            "Apps Script tidak mengembalikan JSON (kemungkinan akses Web App belum diatur 'Siapa saja' atau deployment belum diperbarui)."
+          );
+        }
+
+        if (!result.ok) {
+          throw new Error(result.error || "Gagal menyimpan ke Google Sheets.");
+        }
 
         if (type === "TEMUAN") {
           appData.temuan.push(normalizeTemuanItem(payloadData, appData.temuan.length));
