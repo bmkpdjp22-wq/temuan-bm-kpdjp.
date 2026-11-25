@@ -421,9 +421,10 @@
       margin-bottom: 4px;
     }
 
-    .req-hint {
+    .req-ba {
       color: #b91c1c;
       font-weight: 700;
+      margin-left: 4px;
     }
 
     .modal-foot {
@@ -545,6 +546,12 @@
     </div>
   </div>
 
+  <!-- Form tersembunyi untuk kirim POST ke Apps Script tanpa blokir CORS browser -->
+  <iframe name="hidden_gs_frame" style="display:none;"></iframe>
+  <form id="gsBridgeForm" method="POST" target="hidden_gs_frame" style="display:none;">
+    <input type="hidden" name="payload" id="gsBridgePayload" />
+  </form>
+
   <div id="inputModal" class="modal-backdrop" onclick="if(event.target===this) closeInputModal()">
     <div class="modal-card">
       <div class="modal-head">
@@ -553,11 +560,6 @@
       </div>
       <form id="dataForm" onsubmit="submitFormData(event)">
         <div class="modal-body">
-          <div class="field">
-            <label for="cfgWebAppUrl">URL Web App Apps Script (/exec)</label>
-            <input id="cfgWebAppUrl" type="text" placeholder="https://script.google.com/macros/s/.../exec" oninput="saveWebAppUrlInput()" />
-          </div>
-
           <div class="field">
             <label for="inputType">Jenis Data (Sheet Tujuan)</label>
             <select id="inputType" onchange="toggleFormFields()">
@@ -578,7 +580,7 @@
               </div>
               <div class="field">
                 <label for="t_no_ba">
-                  No BA <span id="t_no_ba_req" class="req-hint" style="display:none;">(Wajib diisi untuk Berita Acara)</span>
+                  No BA <span id="t_no_ba_req" class="req-ba" style="display:none;">(Wajib diisi)</span>
                 </label>
                 <input id="t_no_ba" type="text" placeholder="Contoh: BA/001/..." />
               </div>
@@ -698,11 +700,10 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v11";
-    const URL_STORAGE_KEY = "kpdjp_apps_script_url_v1";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v12";
 
-    // Bisa diisi langsung di sini atau diketik di form modal (otomatis tersimpan di browser)
-    const DEFAULT_WEB_APP_URL = "";
+    // Isi URL Web App Apps Script (/exec) Anda di sini:
+    const GS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_GANTI_DENGAN_URL_ANDA/exec";
 
     const appData = {
       sheet: "TEMUAN",
@@ -714,23 +715,6 @@
       error: "",
       loadingMsg: "Memuat data..."
     };
-
-    function getActiveWebAppUrl() {
-      const fromInput = document.getElementById("cfgWebAppUrl")?.value.trim();
-      if (fromInput) return fromInput;
-      try {
-        const saved = localStorage.getItem(URL_STORAGE_KEY);
-        if (saved && saved.trim()) return saved.trim();
-      } catch (_) {}
-      return DEFAULT_WEB_APP_URL.trim();
-    }
-
-    function saveWebAppUrlInput() {
-      const val = document.getElementById("cfgWebAppUrl")?.value.trim() || "";
-      try {
-        localStorage.setItem(URL_STORAGE_KEY, val);
-      } catch (_) {}
-    }
 
     function fetchWithTimeout(url, options = {}, timeoutMs = 2500) {
       const controller = new AbortController();
@@ -935,7 +919,6 @@
       const msg = document.getElementById("formMsg");
       msg.className = "form-msg";
       msg.textContent = "";
-      document.getElementById("cfgWebAppUrl").value = getActiveWebAppUrl();
       document.getElementById("inputType").value = appData.sheet === "BA" ? "BA" : "TEMUAN";
       toggleFormFields();
       updateTemuanNoBaRequirement();
@@ -956,25 +939,15 @@
     function updateTemuanNoBaRequirement() {
       const jenis = document.getElementById("t_jenis").value;
       const isBaChoice = jenis === "Berita Acara";
-      const hint = document.getElementById("t_no_ba_req");
-      const inputNoBa = document.getElementById("t_no_ba");
-      hint.style.display = isBaChoice ? "inline" : "none";
-      inputNoBa.placeholder = isBaChoice ? "Wajib diisi untuk Berita Acara..." : "Contoh: BA/001/... (opsional)";
+      document.getElementById("t_no_ba_req").style.display = isBaChoice ? "inline" : "none";
     }
 
-    async function submitFormData(e) {
+    function submitFormData(e) {
       e.preventDefault();
       const btn = document.getElementById("btnSubmitForm");
       const msg = document.getElementById("formMsg");
       msg.className = "form-msg";
       msg.textContent = "";
-
-      const webAppUrl = getActiveWebAppUrl();
-      if (!webAppUrl || !webAppUrl.startsWith("https://script.google.com/")) {
-        msg.className = "form-msg err";
-        msg.textContent = "Masukkan URL Web App Apps Script (https://script.google.com/macros/s/.../exec) pada kolom paling atas.";
-        return;
-      }
 
       const type = document.getElementById("inputType").value;
       let payloadData = {};
@@ -994,7 +967,7 @@
 
         if (jenisTemuan === "Berita Acara" && !noBa) {
           msg.className = "form-msg err";
-          msg.textContent = "Karena pilihan Temuan adalah Berita Acara, No BA wajib diisi.";
+          msg.textContent = "Karena Temuan dipilih Berita Acara, No BA wajib diisi.";
           document.getElementById("t_no_ba").focus();
           return;
         }
@@ -1055,15 +1028,11 @@
       btn.textContent = "Menyimpan...";
 
       try {
-        const formBody = new URLSearchParams();
-        formBody.append("payload", JSON.stringify({ type, data: payloadData }));
-
-        await fetch(webAppUrl, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-          body: formBody.toString()
-        });
+        const bridgeForm = document.getElementById("gsBridgeForm");
+        const bridgePayload = document.getElementById("gsBridgePayload");
+        bridgeForm.action = GS_WEB_APP_URL;
+        bridgePayload.value = JSON.stringify({ type, data: payloadData });
+        bridgeForm.submit();
 
         if (type === "TEMUAN") {
           appData.temuan.push(normalizeTemuanItem(payloadData, appData.temuan.length));
@@ -1080,7 +1049,7 @@
         renderTable();
 
         msg.className = "form-msg ok";
-        msg.textContent = "Data dikirim ke Google Sheets! Klik 'Muat Ulang' beberapa detik lagi untuk memastikan sinkron dengan sheet.";
+        msg.textContent = "Data berhasil dikirim ke Google Sheets!";
         document.getElementById("t_no_ba").value = "";
         document.getElementById("t_divisi").value = "";
         document.getElementById("t_lokasi").value = "";
@@ -1096,7 +1065,7 @@
         document.getElementById("b_lokasi").value = "";
         document.getElementById("b_uraian").value = "";
         document.getElementById("b_ket").value = "";
-        setTimeout(() => closeInputModal(), 900);
+        setTimeout(() => closeInputModal(), 800);
       } catch (err) {
         msg.className = "form-msg err";
         msg.textContent = err.message || String(err);
