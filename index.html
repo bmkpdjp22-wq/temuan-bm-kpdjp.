@@ -546,12 +546,6 @@
     </div>
   </div>
 
-  <!-- Form tersembunyi untuk kirim POST ke Apps Script tanpa blokir CORS browser -->
-  <iframe name="hidden_gs_frame" style="display:none;"></iframe>
-  <form id="gsBridgeForm" method="POST" target="hidden_gs_frame" style="display:none;">
-    <input type="hidden" name="payload" id="gsBridgePayload" />
-  </form>
-
   <div id="inputModal" class="modal-backdrop" onclick="if(event.target===this) closeInputModal()">
     <div class="modal-card">
       <div class="modal-head">
@@ -568,7 +562,6 @@
             </select>
           </div>
 
-          <!-- FORM TEMUAN -->
           <div id="fieldsTemuan">
             <div class="form-grid" style="margin-bottom:10px;">
               <div class="field">
@@ -640,7 +633,6 @@
             </div>
           </div>
 
-          <!-- FORM BERITA ACARA -->
           <div id="fieldsBa" style="display:none;">
             <div class="form-grid" style="margin-bottom:10px;">
               <div class="field">
@@ -724,9 +716,9 @@
     const GID_TEMUAN = "0";
     const GID_BA = "1339186549";
     const JSON_PATH = "./data/data_temuan_ba.json";
-    const CACHE_KEY = "kpdjp_monitoring_cache_v14";
+    const CACHE_KEY = "kpdjp_monitoring_cache_v15";
 
-    // Isi URL Web App Apps Script (/exec) Anda di sini:
+    // Ganti dengan URL Web App Apps Script (/exec) asli Anda:
     const GS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_GANTI_DENGAN_URL_ANDA/exec";
 
     const appData = {
@@ -976,7 +968,7 @@
       if (focusEl) focusEl.focus();
     }
 
-    function submitFormData(e) {
+    async function submitFormData(e) {
       e.preventDefault();
       const btn = document.getElementById("btnSubmitForm");
       const msg = document.getElementById("formMsg");
@@ -1004,22 +996,22 @@
         const keterangan = document.getElementById("t_ket").value.trim();
 
         if (jenisTemuan === "Berita Acara" && !noBa) {
-          return showFormError("No BA wajib diisi (*).", document.getElementById("t_no_ba"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("t_no_ba"));
         }
         if (!divisi) {
-          return showFormError("Divisi wajib dipilih (*).", document.getElementById("t_divisi"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("t_divisi"));
         }
         if (!lokasi) {
-          return showFormError("Lokasi/lantai (detail) wajib diisi (*).", document.getElementById("t_lokasi"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("t_lokasi"));
         }
         if (!tglTemuan) {
-          return showFormError("Tanggal Temuan wajib diisi (*).", document.getElementById("t_tgl_temuan"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("t_tgl_temuan"));
         }
         if (!status) {
-          return showFormError("Status wajib diisi (*).", document.getElementById("t_status"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("t_status"));
         }
         if (!tindakLanjut) {
-          return showFormError("Tindak Lanjut wajib diisi (*).", document.getElementById("t_tindak"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("t_tindak"));
         }
 
         payloadData = {
@@ -1050,22 +1042,22 @@
         const keterangan = document.getElementById("b_ket").value.trim();
 
         if (!noBa) {
-          return showFormError("No BA wajib diisi (*).", document.getElementById("b_no"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("b_no"));
         }
         if (!divisi) {
-          return showFormError("Divisi wajib dipilih (*).", document.getElementById("b_divisi"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("b_divisi"));
         }
         if (!tanggal) {
-          return showFormError("Tanggal Temuan wajib diisi (*).", document.getElementById("b_tanggal"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("b_tanggal"));
         }
         if (!lokasiLantai) {
-          return showFormError("Lokasi/lantai (detail) wajib diisi (*).", document.getElementById("b_lokasi"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("b_lokasi"));
         }
         if (!status) {
-          return showFormError("Status wajib diisi (*).", document.getElementById("b_status"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("b_status"));
         }
         if (!tindakLanjut) {
-          return showFormError("Tindak Lanjut wajib diisi (*).", document.getElementById("b_tindak"));
+          return showFormError("Lengkapi kolom bertanda * merah.", document.getElementById("b_tindak"));
         }
 
         payloadData = {
@@ -1083,17 +1075,16 @@
         };
       }
 
+      if (!GS_WEB_APP_URL || GS_WEB_APP_URL.includes("GANTI_DENGAN_URL_ANDA")) {
+        return showFormError("URL Web App Apps Script belum diisi pada GS_WEB_APP_URL.");
+      }
+
       btn.disabled = true;
       btn.textContent = "Menyimpan...";
 
       try {
-        if (GS_WEB_APP_URL && GS_WEB_APP_URL.startsWith("https://script.google.com/")) {
-          const bridgeForm = document.getElementById("gsBridgeForm");
-          const bridgePayload = document.getElementById("gsBridgePayload");
-          bridgeForm.action = GS_WEB_APP_URL;
-          bridgePayload.value = JSON.stringify({ type, data: payloadData });
-          bridgeForm.submit();
-        }
+        const saveUrl = `${GS_WEB_APP_URL}?action=save&payload=${encodeURIComponent(JSON.stringify({ type, data: payloadData }))}`;
+        await fetch(saveUrl, { method: "GET", mode: "no-cors" });
 
         if (type === "TEMUAN") {
           appData.temuan.push(normalizeTemuanItem(payloadData, appData.temuan.length));
@@ -1110,7 +1101,7 @@
         renderTable();
 
         msg.className = "form-msg ok";
-        msg.textContent = "Data berhasil disimpan!";
+        msg.textContent = "Data berhasil disimpan ke Google Sheets!";
         document.getElementById("dataForm").reset();
         setTimeout(() => closeInputModal(), 700);
       } catch (err) {
